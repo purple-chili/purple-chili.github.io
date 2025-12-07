@@ -9,7 +9,43 @@ The data analytics and engineering engine is powered by [polars](https://pola.rs
 
 ## Installation
 
-:flame: Coming soon
+=== "chili"
+
+    Download the latest binary file from GitHub.
+
+    ```sh
+    curl -L -H "Accept: application/vnd.github+json" \
+      https://api.github.com/repos/purple-chili/chili/releases/latest \
+      | grep browser_download_url \
+      | cut -d'"' -f 4 \
+      | grep chili_ \
+      | xargs curl -OL
+    ```
+
+    The extract the binary file to $PATH, e.g. `~/bin~`
+
+    ```sh
+    tar -xvf chili*.tar.gz -C ~/bin/
+    ```
+
+=== "pepper"
+
+    Download the latest binary file from GitHub.
+
+    ```sh
+    curl -L -H "Accept: application/vnd.github+json" \
+      https://api.github.com/repos/purple-chili/chili/releases/latest \
+      | grep browser_download_url \
+      | cut -d'"' -f 4 \
+      | grep pepper_ \
+      | xargs curl -OL
+    ```
+
+    The extract the binary file to $PATH, e.g. `~/bin~`
+
+    ```sh
+    tar -xvf pepper*.tar.gz -C ~/bin/
+    ```
 
 ## Getting Started
 
