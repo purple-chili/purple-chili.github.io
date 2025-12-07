@@ -1,0 +1,64 @@
+site_name: Chili
+site_url: https://purple-chili.github.io/
+copyright: "Copyright &copy; 2025 the Chili Authors"
+theme:
+  name: material
+  favicon: assets/icon.png
+  logo: assets/icon.png
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+      primary: deep-purple
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: deep-purple
+  features:
+    - content.code.copy
+    - content.tabs.link
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+nav:
+  - User Guide: index.md
+  - Command Line: cmd-line.md
+  - Syntax: syntax.md
+  - Environment Variables: env.md
+  - Data Types: data-types.md
+  - Operators: op.md
+  - Query: query.md
+  - OS Functions: os.md
+  - Job Scheduler Functions: job.md
+  - Temporal Functions: temporal.md
+  - IO Functions: io.md
+  - Message Broker Functions: broker.md
+  - Partitioned DataFrame: partitioned-df.md
+  - IPC: ipc.md
+  - Data Flow: data-flow.md
+  - Cookbook:
+      - Real-time case: real-time-case.md
+  - To Do: todo.md
+  - Change Log: changelog.md
