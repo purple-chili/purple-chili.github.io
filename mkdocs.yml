@@ -1,6 +1,7 @@
 site_name: Chili
 site_url: https://purple-chili.github.io/
 copyright: "Copyright &copy; 2025 the Chili Authors"
+repo_url: https://github.com/purple-chili/chili
 theme:
   name: material
   favicon: assets/icon.png
