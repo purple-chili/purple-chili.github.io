@@ -9,6 +9,7 @@
 
 - [x] Patch format `datetime`, `timestamp`
 - [ ] Support `streaming` engine
+- [ ] Support `gpu` engine
 - [ ] Support `lazy` mode
 - [x] `wpar`, validate schema, add a schema file in the table root directory
 - [ ] TLS support
@@ -17,8 +18,7 @@
 
 ## VSCode plugin
 
-- [ ] First release
-- [ ] Integrate with `chili` language server
+- [ ] First release integrated with `chili` language server
 
 ## Language Server
 
