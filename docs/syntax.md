@@ -138,6 +138,17 @@ Assign a value to a variable, unlike other languages, this also returns the assi
       statement;
       ...
     }
+
+    // if else
+    if(condition) {
+      statement;
+      statement;
+      ...
+    } else {
+      statement;
+      statement;
+      ...
+    }
     ```
 
 === "pepper"

@@ -20,6 +20,7 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | @          | at                    | Indexing: apply to collections (like at)                                       |
 | .          | apply                 | Indexing: apply multi-level indexing to collections                            |
 | $          | cast                  | Type casting for values and collections                                        |
+| ??         | nullish coalescing    | returns its right-hand side operand when its left-hand side operand is null    |
 | ?          | rand                  | Random number generator for numbers, element-wise for collections              |
 | !          | dict                  | Create dictionary from keys and values                                         |
 | +          | add                   | Addition for numbers, concatenation for lists/series, temporal addition        |
@@ -27,11 +28,13 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | \*         | muliply               | Multiplication for numbers, scaling for temporal, element-wise for collections |
 | / `chili`  | divide                | Division for numbers, element-wise for collections                             |
 | % `pepper` | divide                | Division for numbers, element-wise for collections                             |
+| \|\|       | logical or            | if either side is true, return true, otherwise return false(short-circuit)     |
 | \|         | or                    | Logical or, max for numbers, element-wise for collections                      |
+| &&         | logical and           | if both sides are true, return true, otherwise return false(short-circuit)     |
 | &          | and                   | Logical and, min for numbers, element-wise for collections                     |
 | #          | take                  | Take first/last N elements from collections                                    |
 | ^          | fill                  | Fill nulls in collections with a value                                         |
-| '          | raise                 | Raise an error with a message                                                  |
+| '`pepper`  | raise                 | Raise an error with a message                                                  |
 | \_         | remove                | Remove first/last N elements from collections                                  |
 | ++         | append                | Concatenation for lists, series, dicts, dataframes                             |
 
@@ -39,78 +42,19 @@ Below is a summary of the main operators, their symbols, and their behavior.
 
     In `chili`, `/` is used for division, in `pepper`, `%` is used for division.
 
-## Operator Details
+???+ tip "Short-circuit operators"
 
-### + (add)
+    `??`, `||`, `&&` are **short-circuit** operators, which means the right-hand side operand is not evaluated if the left-hand side operand is enough to determine the result.
 
-- Adds numbers, concatenates lists/series, and supports temporal addition (e.g., date + duration).
-- Handles mixed types and nulls.
+    ```chili
+    // if a is null, return b, otherwise return a
+    a ?? b;
 
-### - (minus)
+    // if a is true, return a, otherwise return b
+    a || b;
 
-- Subtracts numbers, computes differences for temporal types (e.g., date - date = int).
-- Handles mixed types and nulls.
+    // if a is false, return a, otherwise return b
+    a && b;
+    ```
 
-### \* (muliply)
-
-- Multiplies numbers, scales temporal types, element wise for lists/series/matrices.
-- Handles mixed types and nulls.
-
-### / `chili` or % `pepper` (divide)
-
-- Divides numbers, element wise for lists/series/matrices.
-- Handles mixed types and nulls.
-
-### = (equal)
-
-- Checks equality for numbers, strings, symbols, temporal, and collections.
-- Returns boolean or boolean collection.
-
-### != (not equal)
-
-- Checks inequality (negation of eq).
-
-### >, >=, <, <= (greater, greater than or equal, less, less than or equal)
-
-- Comparison operators for numbers, temporal, and collections.
-- Return boolean or boolean collection.
-
-### ~ (match)
-
-- Deep equality: checks if two values/collections are exactly the same.
-
-### @ (at)
-
-- Indexing: apply to collections (like at)
-
-### . (apply)
-
-- Indexing: apply multi-level indexing to collections
-
-### $ (cast)
-
-- Type casting for values and collections
-
-### ! (dict)
-
-- Create dictionary from keys and values
-
-### ? (rand)
-
-- Random number generator for numbers, element-wise for collections
-
-### | (or)
-
-- Logical or, max for numbers, elementwise for collections
-
-### & (and)
-
-- Logical and, min for numbers, elementwise for collections
-
-### \_ (remove)
-
-- Remove first/last N elements from collections
-
-### ^ (fill)
-
-- Fill nulls in collections with a value
+    After all, these are operators, which follow the evaluation order of each language.

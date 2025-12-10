@@ -22,7 +22,7 @@ The data analytics and engineering engine is powered by [polars](https://pola.rs
       | xargs curl -OL
     ```
 
-    Then extract the binary file to $PATH, e.g. `~/bin~`
+    Then extract the binary file to $PATH, e.g. `~/bin`
 
     ```sh
     tar -xvf chili*.tar.gz -C ~/bin/
