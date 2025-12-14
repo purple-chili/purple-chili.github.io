@@ -34,7 +34,6 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | &          | and                   | Logical and, min for numbers, element-wise for collections                     |
 | #          | take                  | Take first/last N elements from collections                                    |
 | ^          | fill                  | Fill nulls in collections with a value                                         |
-| '`pepper`  | raise                 | Raise an error with a message                                                  |
 | \_         | remove                | Remove first/last N elements from collections                                  |
 | ++         | append                | Concatenation for lists, series, dicts, dataframes                             |
 

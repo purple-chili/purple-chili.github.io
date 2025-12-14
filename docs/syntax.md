@@ -276,14 +276,14 @@ This is an expression, not a statement, which requires a semicolon to separate w
 
 === "pepper"
 
-    For pepper syntax, `:` is used to return a value from a function, `'` is used to raise an error.
+    For pepper syntax, `:` is used to return a value from a function, `raise` is used to raise an error.
 
     ```pepper
     f: {[param1; param2; ...]
       statement;
       statement;
       :value;
-      '"error";
+      raise "error";
       ...
     };
     ```

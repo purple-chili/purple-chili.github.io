@@ -307,6 +307,24 @@ If-else expression.
 | then       | sym or expr | Then value  |
 | else       | sym or expr | Else value  |
 
+### `fby`
+
+Group by and aggregate expression.
+
+| Parameters | Type       | Description |
+| ---------- | ---------- | ----------- |
+| collection | collection | Collection  |
+| group_by   | exprs      | Group by    |
+
+### `within`
+
+Check if a value is within a range.
+
+| Parameters | Type       | Description    |
+| ---------- | ---------- | -------------- |
+| collection | collection | Collection     |
+| range      | range      | Range to check |
+
 ### `.fn.select`
 
 Executes a select query and returns the results as a DataFrame.

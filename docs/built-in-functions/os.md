@@ -1,6 +1,6 @@
 # Operating System Operations
 
-## System Functions
+## Functions
 
 ### `.os.sleep`
 
@@ -170,4 +170,28 @@ Retrieves the value of an environment variable.
 
     // Check if DEBUG is set
     debug: .os.getenv["DEBUG"];
+    ```
+
+## `.os.mem`
+
+Retrieves the memory usage of the current process and the system available memory.
+
+| Parameters | Type | Description |
+| ---------- | ---- | ----------- |
+| None       | None | None        |
+
+**Example:**
+
+=== "chili"
+
+    ```chili
+    // Get memory usage
+    .os.mem();
+    ```
+
+=== "pepper"
+
+    ```pepper
+    // Get memory usage
+    .os.mem[];
     ```

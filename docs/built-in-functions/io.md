@@ -129,6 +129,32 @@ Reads a text file and returns its contents as a string.
 | ---------- | ---------- | -------------------------- |
 | path       | str or sym | File path to the text file |
 
+### `rbin`
+
+Reads a binary file and returns its contents as a list.
+
+| Parameters | Type       | Description                  |
+| ---------- | ---------- | ---------------------------- |
+| path       | str or sym | File path to the binary file |
+
+### `rdatabase`(Pending)
+
+Reads a database and returns a DataFrame.
+
+| Parameters   | Type       | Description          |
+| ------------ | ---------- | -------------------- |
+| database_url | str or sym | Database URL         |
+| sql          | str        | SQL query to execute |
+
+### `rexcel`(Pending)
+
+Reads an Excel file and returns a DataFrame.
+
+| Parameters | Type       | Description                 |
+| ---------- | ---------- | --------------------------- |
+| path       | str or sym | File path to the Excel file |
+| sheet_name | str        | Sheet name to read          |
+
 ## File Writing Functions
 
 ### `wcsv`
@@ -226,6 +252,37 @@ Writes text content to a file.
     ```pepper
     wtxt["log.txt"; "New entry"; 1b]
     ```
+
+### `wbin`
+
+Writes a string to a binary file.
+
+| Parameters | Type       | Description                  |
+| ---------- | ---------- | ---------------------------- |
+| path       | str or sym | File path to the binary file |
+| data       | any        | Data to write                |
+
+## Database Functions
+
+### `wdatabase`(Pending)
+
+Writes a DataFrame to a database.
+
+| Parameters   | Type       | Description        |
+| ------------ | ---------- | ------------------ |
+| database_url | str or sym | Database URL       |
+| table_name   | sym        | Table name         |
+| df           | dataframe  | DataFrame to write |
+
+### `wexcel`(Pending)
+
+Writes a DataFrame to an Excel file.
+
+| Parameters | Type       | Description                 |
+| ---------- | ---------- | --------------------------- |
+| path       | str or sym | File path to the Excel file |
+| sheet_name | str        | Sheet name to write         |
+| df         | dataframe  | DataFrame to write          |
 
 ## Partitioned Data Functions
 
