@@ -361,42 +361,48 @@ Executes a delete query.
 
 ## Functional Query Examples
 
+Single quoted string is used for a column expression.
+
 === "chili"
+
+    'column' is a shortcut for `col("column")`.
 
     ```chili
     // create a dataframe
     t: ([]time: range(100), sym: 100?`a`b`c, qty: 100?10 20 30 40 50, price: 100?1 2 3 4 5f);
 
-    s: col("qty") wsum col("price") as "value";
-    s: enlist(s) ++ (col("qty") wmean col("price") as "vwap");
-    g: [10 xbar col("time"),col("sym")];
+    s: 'qty' wsum 'price' as "value";
+    s: enlist(s) ++ ('qty' wmean 'price' as "vwap");
+    g: [10 xbar 'time','sym'];
 
     .fn.update(t, [], g, s);
 
-    w: col("sym") = `a;
+    w: 'sym' = `a;
 
     .fn.delete(t, w, []);
 
-    w: enlist(w) ++ (col("qty") = 20);
+    w: enlist(w) ++ ('qty' = 20);
     .fn.select(t, [], w, [], [], 0);
     ```
 
 === "pepper"
 
+    'column' is a shortcut for `col["column"]`.
+
     ```pepper
     // create a dataframe
     t: ([]time: range 100; sym: 100?`a`b`c; qty: 100?10 20 30 40 50; price: 100?1 2 3 4 5f);
 
-    s: (col["qty"] wsum col["price"]) as "value";
-    s: enlist[s] ++ (col["qty"] wmean col["price"]) as "vwap";
-    g: (10 xbar col["time"];col["sym"]);
+    s: ('qty' wsum 'price') as "value";
+    s: enlist[s] ++ ('qty' wmean 'price') as "vwap";
+    g: (10 xbar 'time';'sym');
 
     .fn.update[t; (); g; s];
 
-    w: col["sym"] = `a;
+    w: 'sym' = `a;
 
     .fn.delete[t; w; ()]
 
-    w: enlist[w] ++ col["qty"] = 20;
+    w: enlist[w] ++ 'qty' = 20;
     .fn.select[t; (); w; (); (); 0];
     ```
