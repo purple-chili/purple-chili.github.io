@@ -144,6 +144,10 @@ Assign a value to a variable, unlike other languages, this also returns the assi
       statement;
       statement;
       ...
+    } else if(condition) {
+      statement;
+      statement;
+      ...
     } else {
       statement;
       statement;
@@ -162,7 +166,7 @@ Assign a value to a variable, unlike other languages, this also returns the assi
     ];
     ```
 
-### If Else
+### If Else Short-hand
 
 This is an expression, not a statement, which requires a semicolon to separate with next statement.
 
@@ -275,6 +279,8 @@ This is an expression, not a statement, which requires a semicolon to separate w
     ```
 
 === "pepper"
+
+    Single quotation `'` is used for creating a column expression.
 
     For pepper syntax, `:` is used to return a value from a function, `raise` is used to raise an error.
 
