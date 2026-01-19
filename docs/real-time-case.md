@@ -59,7 +59,7 @@ graph TD
     Source code:
 
     ```pepper
-    --8<-- "docs/src/pepper/sub.chi"
+    --8<-- "docs/src/chili/sub.chi"
     ```
 
 ## Pepper Source Code
