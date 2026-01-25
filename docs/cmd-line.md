@@ -27,6 +27,9 @@ The `chili` or `pepper` binary supports the following command line arguments:
 | `--dir`       | `-d`  | String         | ""      | Directory for log files                                                 |
 | `--interval`  | `-i`  | Integer        | 0       | Job execution interval in milliseconds                                  |
 | `--kwargs`    | `-k`  | String         | ""      | String of code; the returned value will be set to the variable `kwargs` |
+| `--lazy`      | `-L`  | Boolean        | false   | Enable lazy evaluation mode                                             |
+| `--version`   | `-V`  | -              | -       | Print version                                                           |
+| `--help`      | `-h`  | -              | -       | Print help message                                                      |
 
 ## Example Usage
 

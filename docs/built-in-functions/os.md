@@ -195,3 +195,27 @@ Retrieves the memory usage of the current process and the system available memor
     // Get memory usage
     .os.mem[];
     ```
+
+## `.os.pid`
+
+Retrieves the process ID of the current process.
+
+| Parameters | Type | Description |
+| ---------- | ---- | ----------- |
+| None       | None | None        |
+
+## `.os.version`
+
+Retrieves the version of the current process.
+
+| Parameters | Type | Description |
+| ---------- | ---- | ----------- |
+| None       | None | None        |
+
+## `.os.syntax`
+
+Retrieves the syntax type of the current process.
+
+| Parameters | Type | Description |
+| ---------- | ---- | ----------- |
+| None       | None | None        |
