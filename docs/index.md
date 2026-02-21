@@ -1,6 +1,6 @@
 # User Guide
 
-`chili` provides two binaries:
+**chili** is a data analytics and engineering engine powered by [Polars](https://pola.rs/). It ships as a single distribution with two syntax modes:
 
 - `chili` uses a modern syntax with query language similar to `javascript`.
 - `pepper` uses a vintage syntax with query language similar to `q`.
@@ -9,45 +9,42 @@ The data analytics and engineering engine is powered by [polars](https://pola.rs
 
 ## Installation
 
-=== "chili"
+Support Linux and macOS, still pending for Windows.
 
-    Download the latest binary file from GitHub.
+Install from [chili-pie](https://pypi.org/project/chili-pie/) with `uv` or `pip`:
 
-    ```sh
-    curl -L -H "Accept: application/vnd.github+json" \
-      https://api.github.com/repos/purple-chili/chili/releases/latest \
-      | grep browser_download_url \
-      | cut -d'"' -f 4 \
-      | grep chili_ \
-      | xargs curl -OL
-    ```
+```sh
+uv pip install chili-pie
+```
 
-    Then extract the binary file to $PATH, e.g. `~/bin`
+Run twith chili syntax:
 
-    ```sh
-    tar -xvf chili*.tar.gz -C ~/bin/
-    ```
+```sh
+chili
+```
 
-=== "pepper"
+Run with pepper syntax:
 
-    Download the latest binary file from GitHub.
+```sh
+chili --pepper
+# or
+chili -P
+```
 
-    ```sh
-    curl -L -H "Accept: application/vnd.github+json" \
-      https://api.github.com/repos/purple-chili/chili/releases/latest \
-      | grep browser_download_url \
-      | cut -d'"' -f 4 \
-      | grep pepper_ \
-      | xargs curl -OL
-    ```
+---
 
-    Then extract the binary file to $PATH, e.g. `~/bin~`
+## Editor & tooling
 
-    ```sh
-    tar -xvf pepper*.tar.gz -C ~/bin/
-    ```
+| Integration          | Link                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| **Language server**  | [chiz](https://pypi.org/project/chiz/)                                               |
+| **VSCode extension** | [chili](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili) |
+| **Vim**              | [Vim syntaxes](https://github.com/purple-chili/chili#vim-syntaxes)                   |
+| **Neovim**           | [Neovim configuration](https://pypi.org/project/chiz/) (see chiz)                    |
 
-## Getting Started
+---
+
+## Getting started
 
 - [Command Line]
 - [Syntax]
@@ -57,7 +54,9 @@ The data analytics and engineering engine is powered by [polars](https://pola.rs
 - [Query]
 - [Environment Variables]
 
-## Built-in Functions
+---
+
+## Built-in functions
 
 - [Basic]
 - [Config]

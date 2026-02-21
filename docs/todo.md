@@ -10,7 +10,7 @@
 - [x] Patch format `datetime`, `timestamp`
 - [ ] Support `streaming` engine
 - [ ] Support `gpu` engine
-- [ ] Support `lazy` mode
+- [x] Support `lazy` mode
 - [x] `wpar`, validate schema, add a schema file in the table root directory
 - [ ] TLS support
 - [ ] Single main thread mode
@@ -18,11 +18,11 @@
 
 ## VSCode plugin
 
-- [ ] First release integrated with `chili` language server
+- [x] [chili](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili)
 
 ## Language Server
 
-- [ ] First release
+- [x] [chiz](https://pypi.org/project/)
 
 ## Package Manager
 

@@ -29,6 +29,7 @@ The `chili` or `pepper` binary supports the following command line arguments:
 | `--kwargs`    | `-k`  | String         | ""      | String of code; the returned value will be set to the variable `kwargs` |
 | `--lazy`      | `-L`  | Boolean        | false   | Enable lazy evaluation mode                                             |
 | `--version`   | `-V`  | -              | -       | Print version                                                           |
+| `--pepper`    | `-P`  | -              | -       | Use pepper syntax                                                       |
 | `--help`      | `-h`  | -              | -       | Print help message                                                      |
 
 ## Example Usage

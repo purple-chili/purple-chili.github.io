@@ -307,3 +307,34 @@ This is an expression, not a statement, which requires a semicolon to separate w
     ```pepper
     f[arg1; arg2; ...];
     ```
+
+### Allowed Tailing Separator
+
+=== "chili"
+
+    ```chili
+    // dataframe
+    ([]col1: 1 2 3, col2: 4 5 6, )
+    // matrix
+    [[ 1 2 3, 4 5 6, ]]
+    // dict
+    {key1: "value1", key2: "value2", }
+    // mixed list
+    [1 2 3, 4 5 6, ]
+    // select columns, by columns, delete columns
+    select col1, col2, col3, by col4, col5, col6, from df
+    ```
+
+=== "pepper"
+
+    ```pepper
+    ([]col1: 1 2 3; col2: 4 5 6; )
+    // matrix
+    [[ 1 2 3; 4 5 6; ]]
+    // dict
+    {key1: "value1"; key2: "value2"; }
+    // mixed list
+    (1 2 3; 4 5 6; )
+    // select columns, by columns, delete columns
+    select col1, col2, col3, by col4, col5, col6, from df
+    ```
