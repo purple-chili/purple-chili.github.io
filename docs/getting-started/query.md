@@ -369,7 +369,7 @@ Single quoted string is used for a column expression.
 
     ```chili
     // create a dataframe
-    t: ([]time: range(100), sym: 100?`a`b`c, qty: 100?10 20 30 40 50, price: 100?1 2 3 4 5f);
+    t: ([]time: range(100), sym: 100?`a`b`c, qty: 100?10 20 30 40 50, price: 100?1.0 2 3 4 5f);
 
     s: 'qty' wsum 'price' as "value";
     s: enlist(s) ++ ('qty' wmean 'price' as "vwap");
@@ -391,7 +391,7 @@ Single quoted string is used for a column expression.
 
     ```pepper
     // create a dataframe
-    t: ([]time: range 100; sym: 100?`a`b`c; qty: 100?10 20 30 40 50; price: 100?1 2 3 4 5f);
+    t: ([]time: range 100; sym: 100?`a`b`c; qty: 100?10 20 30 40 50; price: 100?1.0 2 3 4 5f);
 
     s: ('qty' wsum 'price') as "value";
     s: enlist[s] ++ ('qty' wmean 'price') as "vwap";
@@ -401,7 +401,7 @@ Single quoted string is used for a column expression.
 
     w: 'sym' = `a;
 
-    .fn.delete[t; w; ()]
+    .fn.delete[t; w; ()];
 
     w: enlist[w] ++ 'qty' = 20;
     .fn.select[t; (); w; (); (); 0];

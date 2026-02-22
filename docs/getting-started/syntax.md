@@ -40,17 +40,17 @@ To import source files, use `import` function. Using `CHILI_PKG_PATH` environmen
 === "chili"
 
     ``` chili
-    import("./src.jx");
-    import("../util.jx");
-    import("/tmp/src.jx");
+    import("./src.chi");
+    import("../util.chi");
+    import("/tmp/src.chi");
     ```
 
 === "pepper"
 
     ``` pepper
-    import "./src.jx";
-    import "../util.jx";
-    import "/tmp/src.jx";
+    import "./src.pep";
+    import "../util.pep";
+    import "/tmp/src.pep";
     ```
 
 ## Comments
@@ -328,6 +328,7 @@ This is an expression, not a statement, which requires a semicolon to separate w
 === "pepper"
 
     ```pepper
+    // dataframe
     ([]col1: 1 2 3; col2: 4 5 6; )
     // matrix
     [[ 1 2 3; 4 5 6; ]]

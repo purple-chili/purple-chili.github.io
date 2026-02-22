@@ -20,7 +20,7 @@ This document describes the core data types used in the `Chili`.
 | `f64`       | 64-bit floating point                                     | `0.0` , `-1.23`, `3E3`                                      |
 | `str`       | String                                                    | `""` , `"string"`                                           |
 | `sym`       | Symbol (interned string, often used for categorical data) | `` ` `` , `` `symbol ``                                     |
-| `expr`      | Expression (internal use)                                 | `col("column")` , `lit(0b)`                                 |
+| `expr`      | Expression (internal use)                                 | `col("column")` , `lit(0b)` , `'value'`                     |
 | `null`      | Null value                                                | `0n`                                                        |
 
 !!! note
