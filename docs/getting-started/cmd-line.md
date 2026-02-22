@@ -15,7 +15,7 @@
 
 ## Command Line Options
 
-The `chili` or `pepper` binary supports the following command line arguments:
+The `chili` supports the following command line arguments:
 
 | Argument      | Short | Type           | Default | Description                                                             |
 | ------------- | ----- | -------------- | ------- | ----------------------------------------------------------------------- |
@@ -43,5 +43,5 @@ The `chili` or `pepper` binary supports the following command line arguments:
 === "pepper"
 
     ```sh
-    pepper script.pep --port 18000 --remote --users alice bob --log-level debug --dir /var/log/chili --interval 1000 --kwargs '{start_date: today[`]-7; end_date: today`}'
+    chili --pepper script.pep --port 18000 --remote --users alice bob --log-level debug --dir /var/log/chili --interval 1000 --kwargs '{start_date: today[`]-7; end_date: today`}'
     ```

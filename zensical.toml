@@ -1,0 +1,101 @@
+[project]
+site_name = "Chili"
+site_url = "https://purple-chili.github.io/"
+copyright = "Copyright &copy; 2025 the Chili Authors"
+repo_url = "https://github.com/purple-chili/chili"
+repo_name = "purple-chili/chili"
+docs_dir = "docs"
+site_dir = "site"
+# Navigation
+nav = [
+  { "Installation" = "index.md" },
+  { "Getting Started" = [
+    { "Environment Variables" = "getting-started/env.md" },
+    { "Command Line" = "getting-started/cmd-line.md" },
+    { "Syntax" = "getting-started/syntax.md" },
+    { "Data Types" = "getting-started/data-types.md" },
+    { "Operators" = "getting-started/op.md" },
+    { "Partitioned DataFrame" = "getting-started/partitioned-df.md" },
+    { "Query" = "getting-started/query.md" },
+  ] },
+  { "Built-in Functions" = [
+    { "Basic" = "built-in-functions/basic.md" },
+    { "Config" = "built-in-functions/config.md" },
+    { "DataFrame" = "built-in-functions/df.md" },
+    { "Dictionary" = "built-in-functions/dict.md" },
+    { "IO" = "built-in-functions/io.md" },
+    { "IPC" = "built-in-functions/ipc.md" },
+    { "Job Scheduler" = "built-in-functions/job.md" },
+    { "Log" = "built-in-functions/log.md" },
+    { "Math" = "built-in-functions/math.md" },
+    { "Matrix" = "built-in-functions/matrix.md" },
+    { "Message Broker" = "built-in-functions/broker.md" },
+    { "OS" = "built-in-functions/os.md" },
+    { "Series" = "built-in-functions/series.md" },
+    { "String" = "built-in-functions/str.md" },
+    { "Temporal" = "built-in-functions/temporal.md" },
+    { "Test" = "built-in-functions/test.md" },
+  ] },
+  { "Data Flow" = "data-flow.md" },
+  { "Cookbook" = [
+    { "Real-time case" = "cookbook/real-time-case.md" },
+  ] },
+  { "Roadmap" = "roadmap.md" },
+]
+
+
+[project.theme]
+variant = "modern"
+language = "en"
+favicon = "assets/icon.png"
+logo = "assets/icon.png"
+features = ["content.code.copy", "content.tabs.link"]
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
+# Dark palette (first so it can be default when prefers-color-scheme: dark)
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "deep-purple"
+accent = "purple"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+# Light palette
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "deep-purple"
+accent = "purple"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+# Markdown extensions
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "zensical.extensions.emoji.twemoji"
+emoji_generator = "zensical.extensions.emoji.to_svg"
+
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+pygments_lang_class = true
+
+[project.markdown_extensions.pymdownx.inlinehilite]
+
+[project.markdown_extensions.pymdownx.snippets]
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[project.markdown_extensions.admonition]
+
+[project.markdown_extensions.pymdownx.details]

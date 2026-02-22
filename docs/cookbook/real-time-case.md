@@ -31,7 +31,7 @@ graph TD
     Source code:
 
     ```chili
-    --8<-- "docs/src/chili/tick.chi"
+    --8<-- "docs/cookbook/src/chili/tick.chi"
     ```
 
 === "pub.chi"
@@ -45,7 +45,7 @@ graph TD
     Source code:
 
     ```chili
-    --8<-- "docs/src/chili/pub.chi"
+    --8<-- "docs/cookbook/src/chili/pub.chi"
     ```
 
 === "sub.chi"
@@ -53,13 +53,13 @@ graph TD
     Start a subscriber instance to subscribe data from the message broker. Trade and quote tables shall be able to query on subscriber instance.
 
     ```bash
-    pepper ./src/pepper/sub.chi
+    chili ./src/pepper/sub.chi
     ```
 
     Source code:
 
     ```pepper
-    --8<-- "docs/src/chili/sub.chi"
+    --8<-- "docs/cookbook/src/chili/sub.chi"
     ```
 
 ## Pepper Source Code
@@ -69,13 +69,13 @@ graph TD
     Start a message broker instance, listen at port 18000.
 
     ```bash
-    pepper ./src/pepper/tick.pep -p 18000
+    chili -P ./src/pepper/tick.pep -p 18000
     ```
 
     Source code:
 
     ```pepper
-    --8<-- "docs/src/pepper/tick.pep"
+    --8<-- "docs/cookbook/src/pepper/tick.pep"
     ```
 
 === "pub.pep"
@@ -83,13 +83,13 @@ graph TD
     Start a publisher instance to publish data to the message broker, publish 10 records every second. `-i 1000` is required to trigger job every 1 second.
 
     ```bash
-    pepper ./src/pepper/pub.pep -i 1000
+    chili -P ./src/pepper/pub.pep -i 1000
     ```
 
     Source code:
 
     ```pepper
-    --8<-- "docs/src/pepper/pub.pep"
+    --8<-- "docs/cookbook/src/pepper/pub.pep"
     ```
 
 === "sub.pep"
@@ -97,11 +97,11 @@ graph TD
     Start a subscriber instance to subscribe data from the message broker. Trade and quote tables shall be able to query on subscriber instance.
 
     ```bash
-    pepper ./src/pepper/sub.pep
+    chili -P ./src/pepper/sub.pep
     ```
 
     Source code:
 
     ```pepper
-    --8<-- "docs/src/pepper/sub.pep"
+    --8<-- "docs/cookbook/src/pepper/sub.pep"
     ```
