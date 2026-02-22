@@ -9,7 +9,7 @@ The data analytics and engineering engine is powered by [polars](https://pola.rs
 
 ## Installation
 
-Support Linux and macOS, still pending for Windows.
+Support Linux, macOS, and Windows(x86_64).
 
 Install from [chili-pie](https://pypi.org/project/chili-pie/) with `uv` or `pip`:
 
@@ -17,7 +17,7 @@ Install from [chili-pie](https://pypi.org/project/chili-pie/) with `uv` or `pip`
 uv pip install chili-pie
 ```
 
-Run twith chili syntax:
+Run with chili syntax:
 
 ```sh
 chili
