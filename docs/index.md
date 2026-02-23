@@ -1,4 +1,4 @@
-# User Guide
+# Chili
 
 **chili** is a data analytics and engineering engine powered by [Polars](https://pola.rs/). It ships as a single distribution with two syntax modes:
 

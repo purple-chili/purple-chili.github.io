@@ -27,7 +27,6 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | -         | minus                 | Subtraction for numbers, temporal difference                                   |
 | \*        | muliply               | Multiplication for numbers, scaling for temporal, element-wise for collections |
 | /         | divide                | Division for numbers, element-wise for collections                             |
-| %         | divide                | Division for numbers, element-wise for collections                             |
 | \|\|      | logical or            | if either side is true, return true, otherwise return false(short-circuit)     |
 | \|        | or                    | Logical or, max for numbers, element-wise for collections                      |
 | &&        | logical and           | if both sides are true, return true, otherwise return false(short-circuit)     |
@@ -39,7 +38,7 @@ Below is a summary of the main operators, their symbols, and their behavior.
 
 ???+ warning
 
-    In `chili`, `/` and `%` are used for division. However, `%` could be removed in the future.
+    `/` is used for division, not `%`.
 
 ???+ tip "Short-circuit operators"
 

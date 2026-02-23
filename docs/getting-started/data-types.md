@@ -6,18 +6,18 @@ This document describes the core data types used in the `Chili`.
 
 | Type        | Description                                               | Literal                                                     |
 | ----------- | --------------------------------------------------------- | ----------------------------------------------------------- |
-| `bool`      | Boolean value (`true`/`false`)                            | `ob` or `1b`                                                |
-| `u8`        | 8-bit unsigned integer                                    | `0x00` , `0x12`                                             |
+| `bool`      | Boolean value (`true`/`false`)                            | `ob`, `1b`, `true`, `false`                                 |
+| `u8`        | 8-bit unsigned integer                                    | `0x00` , `0x12`, `1u8`                                      |
 | `i16`       | 16-bit signed integer                                     | `0h` , `18h`, `42i16`                                       |
 | `i32`       | 32-bit signed integer                                     | `0i` , `18i`, `42i32`                                       |
-| `i64`       | 64-bit signed integer                                     | `0` , `18`                                                  |
+| `i64`       | 64-bit signed integer                                     | `0` , `18`, `32i64`                                         |
 | `date`      | Date, days since 1970-01-01                               | `2025.07.22` , `2025.08.18`                                 |
 | `time`      | Time of day, nanoseconds since midnight                   | `00:00:00.000` , `12:34:56.123456789`                       |
 | `datetime`  | Milliseconds since 1970-01-01T00:00:00.000                | `2025.07.22T00:00:00.000` , `2025.08.18T00:00:00.123`       |
 | `timestamp` | Nanoseconds since 1970-01-01T00:00:00.000                 | `2025.07.22D00:00:00.000` , `2025.08.18D00:00:00.123456789` |
 | `duration`  | Duration in nanoseconds                                   | `0D00:00:00` , `123D12:34:56.123456789`                     |
 | `f32`       | 32-bit floating point                                     | `0.0e` , `-1.23e`, `3E3e` , `1f32`                          |
-| `f64`       | 64-bit floating point                                     | `0.0` , `-1.23`, `3E3`                                      |
+| `f64`       | 64-bit floating point                                     | `0.0` , `-1.23`, `3E3`, `1f64`                              |
 | `str`       | String                                                    | `""` , `"string"`                                           |
 | `sym`       | Symbol (interned string, often used for categorical data) | `` ` `` , `` `symbol ``                                     |
 | `expr`      | Expression (internal use)                                 | `col("column")` , `lit(0b)` , `'value'`                     |
