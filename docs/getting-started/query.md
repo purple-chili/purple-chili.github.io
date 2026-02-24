@@ -2,7 +2,7 @@
 
 ## Overview
 
-`chili` incorporates a query syntax(similar to [qsql](https://code.kx.com/q/basics/qsql/)) for executing queries, and return the results as a DataFrame.
+`chili` incorporates a query syntax for executing queries, and return the results as a DataFrame.
 
 ## Syntax
 
@@ -21,7 +21,7 @@ Optional statements:
 
     ```chili
     // create a dataframe
-    t: ([]sym:10?`a`b`c; qty: 10?1 2);
+    t: ([]sym:10?`a`b`c, qty: 10?1 2);
 
     // select all columns from the dataframe
     select from t;
@@ -81,7 +81,7 @@ Optional statements:
 
     ```pepper
     // create a dataframe
-    t: ([]sym:10?`a`b`c; qty: 10?1 2);
+    t: ([]sym:10?`a`b`c, qty: 10?1 2);
 
     // append a price column
     update price: 100 from t;
@@ -125,9 +125,9 @@ Optional statements:
 
 === "chili"
 
-    ```pepper
+    ```chili
     // create a dataframe
-    t: ([]sym:10?`a`b`c; qty: 10?1 2);
+    t: ([]sym:10?`a`b`c, qty: 10?1 2);
 
     // delete the quantity by symbol
     delete from t where sym = `a;
@@ -405,4 +405,37 @@ Single quoted string is used for a column expression.
 
     w: enlist[w] ++ 'qty' = 20;
     .fn.select[t; (); w; (); (); 0];
+    ```
+
+## Lazy Evaluation
+
+With flag `-L` or `--lazy`, the evaluation is deferred until `collect` function is called.
+
+!!! info "Further Features"
+
+    - lazy joins
+    - lazy pivot/unpivot
+
+=== "chili"
+
+    ```chili
+    // create a dataframe
+    t: ([]sym:10?`a`b`c, qty: 10?1 2);
+
+    // select last all columns by sym
+    lf: select by sym from t;
+
+    collect(lf);
+    ```
+
+=== "pepper"
+
+    ```pepper
+    // create a dataframe
+    t: ([]sym:10?`a`b`c; qty: 10?1 2);
+
+    // select last all columns by sym
+    lf: select by sym from t;
+
+    collect lf;
     ```

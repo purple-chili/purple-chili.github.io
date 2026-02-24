@@ -33,12 +33,25 @@ chili -P
 
 ## Editor & Tooling
 
-| Integration          | Link                                                                                 |
-| -------------------- | ------------------------------------------------------------------------------------ |
-| **Language server**  | [chiz](https://pypi.org/project/chiz/)                                               |
-| **VSCode extension** | [chili](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili) |
-| **Vim**              | [Vim syntaxes](https://github.com/purple-chili/chili#vim-syntaxes)                   |
-| **Neovim**           | [Neovim configuration](https://pypi.org/project/chiz/) (see chiz)                    |
+### Companion Tool `chiz`
+
+Install from [PyPI](https://pypi.org/project/chiz/):
+
+```sh
+pip install chiz
+```
+
+With `chiz`, you can:
+
+- `chiz fmt` to format code
+- `chiz serve` to start a language server
+- `chiz parse` to parse code, and check syntax errors
+- `chiz vim` to install <span style="color:lime; font-weight: bold;">vim</span> syntaxes
+- `chiz neovim` to install <span style="color:cyan; font-weight: bold;">neovim</span> configuration
+
+### VSCode Extension
+
+Install from [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili), this extension requires `chiz` to be installed for providing language server features.
 
 ## Change Log
 
