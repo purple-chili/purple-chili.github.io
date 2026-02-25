@@ -5,6 +5,10 @@
 - `chili` uses a modern syntax with query language similar to `javascript`.
 - `pepper` uses a vintage syntax with query language similar to `q`.
 
+## Demo
+
+<video src="assets/demo.mp4" width="906" height="756" controls></video>
+
 ## Installation
 
 Support Linux, macOS, and Windows(x86_64).
