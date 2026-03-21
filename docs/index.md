@@ -16,7 +16,11 @@ Support Linux, macOS, and Windows(x86_64).
 Install from [chili-pie](https://pypi.org/project/chili-pie/) with `uv` or `pip`:
 
 ```sh
-uv pip install chili-pie
+uv pip install -U chili-pie
+```
+
+```sh
+pip install -U chili-pie
 ```
 
 Run with chili syntax:
@@ -39,10 +43,14 @@ chili -P
 
 ### Companion Tool `chiz`
 
-Install from [PyPI](https://pypi.org/project/chiz/):
+Install from [PyPI](https://pypi.org/project/chiz/), using `uv` or `pip`:
 
 ```sh
-pip install chiz
+uv pip install -U chiz
+```
+
+```sh
+pip install -U chiz
 ```
 
 With `chiz`, you can:
