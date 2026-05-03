@@ -298,6 +298,7 @@ Writes a DataFrame as a partitioned dataframe, return the file size in bytes.
 | df           | dataframe   | DataFrame to write                                                       |
 | sort_columns | syms        | Columns to sort by, but there is no attribute concept for parquet files. |
 | rechunk      | bool        | Whether to rechunk and consolidate partitions                            |
+| overwrite    | bool        | Whether to overwrite the existing file                                   |
 
 !!! tip
 
@@ -313,21 +314,63 @@ Writes a DataFrame as a partitioned dataframe, return the file size in bytes.
 
     ```chili
     // Write to year-based partition
-    size = wpar("/data/hdb", 2024, `prices, df, `symbol, 0b)
+    size = wpar("/data/hdb", 2024, `prices, df, `symbol, 0b, 0b)
 
     // Write to date-based partition
-    size = wpar("/data/hdb", 2024.01.15, `trades, df, `time, 0b)
+    size = wpar("/data/hdb", 2024.01.15, `trades, df, `time, 0b, 0b)
     ```
 
 === "pepper"
 
     ```pepper
     // Write to year-based partition
-    size = wpar["/data/hdb"; 2024; `prices; df; `symbol; 0b]
+    size = wpar["/data/hdb"; 2024; `prices; df; `symbol; 0b; 0b]
 
     // Write to date-based partition
-    size = wpar["/data/hdb"; 2024.01.15; `trades; df; `time; 0b]
+    size = wpar["/data/hdb"; 2024.01.15; `trades; df; `time; 0b; 0b]
     ```
+
+### `load`
+
+Load partitioned tables from a directory on disk.
+
+Recursively traverses the directory tree starting at `path`. For each subdirectory encountered:
+
+- If it contains **partition files** (files whose name starts with a digit, e.g. `2024.01.01_data` or `2025_01`), it is registered as a partitioned table.
+- If it contains **only subdirectories** (no partition files), it is treated as a **namespace** and traversed further.
+- **Single files** are registered as non-partitioned tables.
+
+Intermediate directory names are joined with `.` to form qualified table names.
+
+| Parameters | Type       | Description                                |
+| ---------- | ---------- | ------------------------------------------ |
+| path       | str or sym | Root directory of the partitioned database |
+
+#### Examples
+
+**Flat structure** (single level):
+
+```
+/hdb/trade/2024.01.01_abc   → table "trade"
+/hdb/order/2025_01          → table "order"
+/hdb/ref_data               → table "ref_data" (single file)
+```
+
+```
+load("/hdb")
+```
+
+**Nested structure** (namespace subdirectories):
+
+```
+/data/equities/trade/2024.01.01_abc  → table "equities.trade"
+/data/equities/order/2025_01         → table "equities.order"
+/data/fx/spot/2024.01.01_abc         → table "fx.spot"
+```
+
+```
+load("/data")
+```
 
 ## Utility Functions
 

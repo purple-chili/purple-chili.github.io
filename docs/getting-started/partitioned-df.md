@@ -28,15 +28,15 @@ schema file is empty data, it is used to validate the schema of the data.
     ```chili
     // partition by date
     trade: ([]sym:100?`a`b`c, time: 100#now(`Asia/Tokyo), qty: 100?100, price: 100?100.0);
-    wpar(`/tmp/hdb, today(`), `trade, trade, `time, 0b);
+    wpar(`/tmp/hdb, today(`), `trade, trade, `time, 0b, 0b);
 
     // partition by year
     order: ([]sym:100?`a`b`c, time: 100#now(`Asia/Tokyo), order_id: range(100), qty: 100?100, price: 100?100.0);
-    wpar(`/tmp/hdb, 2025, `order, order, `time, 0b);
+    wpar(`/tmp/hdb, 2025, `order, order, `time, 0b, 0b);
 
     // single file
     ex2tz: ([]exchange: `TSE`HKG, tz: `Asia/Tokyo`Asia/Hong_Kong);
-    wpar(`/tmp/hdb, 0n, `ex2tz, ex2tz, `time, 0b);
+    wpar(`/tmp/hdb, 0n, `ex2tz, ex2tz, `time, 0b, 0b);
     ```
 
 === "pepper"
@@ -44,15 +44,15 @@ schema file is empty data, it is used to validate the schema of the data.
     ```pepper
     // partition by date
     trade: ([]sym:100?`a`b`c; time: 100#now`Asia/Tokyo; qty: 100?100; price: 100?100.0);
-    wpar[`/tmp/hdb; today`; `trade; trade; `time; 0b];
+    wpar[`/tmp/hdb; today`; `trade; trade; `time; 0b; 0b];
 
     // partition by year
     order: ([]sym:100?`a`b`c; time: 100#now`Asia/Tokyo; order_id: range 100;qty: 100?100; price: 100?100.0);
-    wpar[`/tmp/hdb; 2025; `order; order; `time; 0b];
+    wpar[`/tmp/hdb; 2025; `order; order; `time; 0b; 0b];
 
     // single file
     ex2tz: ([]exchange: `TSE`HKG; tz: `Asia/Tokyo`Asia/Hong_Kong);
-    wpar[`/tmp/hdb; 0n; `ex2tz; ex2tz; `time; 0b];
+    wpar[`/tmp/hdb; 0n; `ex2tz; ex2tz; `time; 0b; 0b];
     ```
 
 ## Read Partitioned DataFrame

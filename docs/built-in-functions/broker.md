@@ -73,6 +73,7 @@ Replay a sequence file.
 
 Update the internal tick count.
 
-| Parameters | Type | Description |
-| ---------- | ---- | ----------- |
-| n          | i64  | Tick count  |
+| Parameters | Type | Description   |
+| ---------- | ---- | ------------- |
+| handle     | i64  | Handle number |
+| n          | i64  | Tick count    |

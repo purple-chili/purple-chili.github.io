@@ -81,6 +81,26 @@ Opens a handle to the specified socket and returns the handle number(i64).
     .handle.open `chili://:18000;
     ```
 
+### `.handle.exists`
+
+Checks if a handle exists.
+
+| Parameters | Type | Description   |
+| ---------- | ---- | ------------- |
+| handle     | i64  | Handle number |
+
+=== "chili"
+
+    ```chili
+    .handle.exists(handle);
+    ```
+
+=== "pepper"
+
+    ```pepper
+    .handle.exists[handle];
+    ```
+
 ### `.handle.close`
 
 Closes the specified handle.
