@@ -93,5 +93,4 @@ refer to [Change Log](https://github.com/purple-chili/chili/blob/main/CHANGELOG.
 [String]: built-in-functions/str.md
 [Temporal]: built-in-functions/temporal.md
 [Test]: built-in-functions/test.md
-[Real-time case]: real-time-case.md
-[To Do]: todo.md
+[Real-time case]: cookbook/real-time-case.md

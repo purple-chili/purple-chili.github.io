@@ -61,19 +61,20 @@ List all topics with subscriber handles.
 
 Replay a sequence file.
 
-| Parameters  | Type | Description                      |
-| ----------- | ---- | -------------------------------- |
-| file        | str  | File to replay                   |
-| start       | i64  | Start time                       |
-| end         | i64  | End time                         |
-| table_names | syms | Table names to replay            |
-| eval        | bool | Whether to evaluate the messages |
+| Parameters  | Type            | Description                      |
+| ----------- | --------------- | -------------------------------- |
+| file        | str             | File to replay                   |
+| start       | timestamp or i64| Start time or start index        |
+| end         | i64             | End index                        |
+| table_names | syms            | Table names to replay            |
+| eval        | bool            | Whether to evaluate the messages |
+| handle      | i64             | Handle number                    |
 
 ### `tick`
 
 Update the internal tick count.
 
-| Parameters | Type | Description   |
-| ---------- | ---- | ------------- |
-| handle     | i64  | Handle number |
-| n          | i64  | Tick count    |
+| Parameters | Type | Description                            |
+| ---------- | ---- | -------------------------------------- |
+| index      | i64  | Tick counter index (0..1024)           |
+| inc        | i64  | Increment value                        |

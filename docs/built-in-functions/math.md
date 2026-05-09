@@ -150,6 +150,33 @@ Integer division of two numbers.
 | p1         | any  | Dividend    |
 | p2         | any  | Divisor     |
 
+### `emean`
+
+Get the exponentially weighted moving mean of a series.
+
+| Parameters | Type   | Description                              |
+| ---------- | ------ | ---------------------------------------- |
+| alpha      | f64    | Smoothing factor (0 < alpha <= 1)        |
+| series     | series | Series to get exponentially weighted mean |
+
+### `estd`
+
+Get the exponentially weighted moving standard deviation of a series.
+
+| Parameters | Type   | Description                                            |
+| ---------- | ------ | ------------------------------------------------------ |
+| alpha      | f64    | Smoothing factor (0 < alpha <= 1)                      |
+| series     | series | Series to get exponentially weighted standard deviation |
+
+### `evar`
+
+Get the exponentially weighted moving variance of a series.
+
+| Parameters | Type   | Description                                  |
+| ---------- | ------ | -------------------------------------------- |
+| alpha      | f64    | Smoothing factor (0 < alpha <= 1)            |
+| series     | series | Series to get exponentially weighted variance |
+
 ### `exp`
 
 Get the exponential of a number.

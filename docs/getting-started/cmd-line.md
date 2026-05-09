@@ -28,6 +28,8 @@ The `chili` supports the following command line arguments:
 | `--interval`  | `-i`  | Integer        | 0       | Job execution interval in milliseconds                                  |
 | `--kwargs`    | `-k`  | String         | ""      | String of code; the returned value will be set to the variable `kwargs` |
 | `--lazy`      | `-L`  | Boolean        | false   | Enable lazy evaluation mode                                             |
+| `--memory`    | `-m`  | Float          | 0.0     | Memory limit in GB (0 for unlimited, at least 1 GB)                     |
+| `--headless`  |       | Boolean        | false   | Skip the interactive REPL; run as headless daemon                       |
 | `--version`   | `-V`  | -              | -       | Print version                                                           |
 | `--pepper`    | `-P`  | -              | -       | Use pepper syntax                                                       |
 | `--help`      | `-h`  | -              | -       | Print help message                                                      |

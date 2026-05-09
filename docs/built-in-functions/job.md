@@ -59,7 +59,7 @@ Adds a new recurring job and returns the job ID(i64).
 
 ---
 
-### `.job.add_after`
+### `.job.addAfter`
 
 Adds a job to run once after a specified interval from now, and returns the job ID(i64).
 
@@ -74,16 +74,16 @@ Adds a job to run once after a specified interval from now, and returns the job 
 === "chili"
 
     ```chili
-    .job.add_after(`my_fn, 0D00:10:00.000000000, "run in 10 minutes");
+    .job.addAfter(`my_fn, 0D00:10:00.000000000, "run in 10 minutes");
     ```
 
 === "pepper"
 
     ```pepper
-    .job.add_after["my_fn"; 0D00:10:00.000000000; "run in 10 minutes"]
+    .job.addAfter["my_fn"; 0D00:10:00.000000000; "run in 10 minutes"]
     ```
 
-### `.job.add_at_time`
+### `.job.addAtTime`
 
 Adds a job to run once at a specific time and returns the job ID(i64).
 
@@ -98,13 +98,13 @@ Adds a job to run once at a specific time and returns the job ID(i64).
 === "chili"
 
     ```chili
-    .job.add_at_time(`my_fn, 2025.01.01D12:00:00.000000000, "noon job");
+    .job.addAtTime(`my_fn, 2025.01.01D12:00:00.000000000, "noon job");
     ```
 
 === "pepper"
 
     ```pepper
-    .job.add_at_time["my_fn"; 2025.01.01D12:00:00.000000000; "noon job"]
+    .job.addAtTime["my_fn"; 2025.01.01D12:00:00.000000000; "noon job"]
     ```
 
 ### `.job.get`

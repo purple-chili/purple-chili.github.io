@@ -22,7 +22,7 @@
 
 ## Language Server
 
-- [x] [chiz](https://pypi.org/project/)
+- [x] [chiz](https://pypi.org/project/chiz/)
 
 ## Package Manager
 

@@ -1,6 +1,6 @@
 # Config
 
-console,"function(rows, cols){}"
+Configure how DataFrames are displayed in the console.
 
 ## Functions
 

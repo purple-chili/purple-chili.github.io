@@ -79,7 +79,7 @@ Optional statements:
 
 === "chili"
 
-    ```pepper
+    ```chili
     // create a dataframe
     t: ([]sym:10?`a`b`c, qty: 10?1 2);
 

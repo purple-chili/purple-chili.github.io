@@ -2,6 +2,14 @@
 
 ## Functions
 
+### `collect`
+
+Collect a lazy DataFrame into an eager DataFrame. Used with lazy evaluation mode (`-L` or `--lazy`).
+
+| Parameters | Type       | Description                   |
+| ---------- | ---------- | ----------------------------- |
+| lazy_frame | lazy frame | Lazy DataFrame to collect     |
+
 ### `cols`
 
 Get the columns of a dataframe.

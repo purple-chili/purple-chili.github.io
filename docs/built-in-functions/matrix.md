@@ -1,6 +1,6 @@
 # Matrix Functions
 
-## `inv`(Pending)
+## `inv`
 
 Inverts a matrix.
 

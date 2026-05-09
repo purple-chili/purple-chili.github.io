@@ -21,3 +21,11 @@ export CHILI_IPC_TOKEN=mysecretpassword
 ```bash
 export CHILI_NETWORK_BANDWIDTH=1000
 ```
+
+## Package path (Pending)
+
+- `CHILI_PKG_PATH`: Sets the package path for `import` resolution. Defaults to `~/chili`. See [Syntax - Import](../getting-started/syntax.md#import) for details.
+
+```bash
+export CHILI_PKG_PATH=~/chili
+```

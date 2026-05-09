@@ -25,7 +25,7 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | !         | dict                  | Create dictionary from keys and values                                         |
 | +         | add                   | Addition for numbers, concatenation for lists/series, temporal addition        |
 | -         | minus                 | Subtraction for numbers, temporal difference                                   |
-| \*        | muliply               | Multiplication for numbers, scaling for temporal, element-wise for collections |
+| \*        | multiply              | Multiplication for numbers, scaling for temporal, element-wise for collections |
 | /         | divide                | Division for numbers, element-wise for collections                             |
 | \|\|      | logical or            | if either side is true, return true, otherwise return false(short-circuit)     |
 | \|        | or                    | Logical or, max for numbers, element-wise for collections                      |

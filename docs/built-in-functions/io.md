@@ -129,7 +129,7 @@ Reads a text file and returns its contents as a string.
 | ---------- | ---------- | -------------------------- |
 | path       | str or sym | File path to the text file |
 
-### `rbin`
+### `rbin`(Pending)
 
 Reads a binary file and returns its contents as a list.
 
@@ -161,12 +161,11 @@ Reads an Excel file and returns a DataFrame.
 
 Writes a DataFrame to a CSV file.
 
-| Parameters | Type       | Description                                                    |
-| ---------- | ---------- | -------------------------------------------------------------- |
-| path       | str or sym | File path to the CSV file                                      |
-| df         | dataframe  | DataFrame to write                                             |
-| separator  | str        | Single character separator (e.g., "," for comma)               |
-| append     | bool       | Whether to append to existing file (true) or overwrite (false) |
+| Parameters | Type       | Description                                              |
+| ---------- | ---------- | -------------------------------------------------------- |
+| path       | str or sym | File path to the CSV file                                |
+| df         | dataframe  | DataFrame to write                                       |
+| separator  | str        | Single character separator (e.g., "," for comma)         |
 
 **Example:**
 
@@ -253,7 +252,7 @@ Writes text content to a file.
     wtxt["log.txt"; "New entry"; 1b]
     ```
 
-### `wbin`
+### `wbin`(Pending)
 
 Writes a string to a binary file.
 

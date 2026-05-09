@@ -28,7 +28,7 @@ This document describes the core data types used in the `Chili`.
     - `time` data type only ranges from 00:00:00.000000000 to 23:59:59.999999999
     - `timestamp` stores as nanoseconds since Unix epoch (1970-01-01T00:00:00Z)
     - `date` stores as days since Unix epoch (1970-01-01)
-    - series has more types than the atomic type, see [Casting](#casting) for more details.
+    - Series supports additional types beyond the atomic types (e.g., `u16`, `u32`, `u64`, `i8`, `i128`) via suffix notation or casting. See [Casting](#casting) for the full list.
 
 ## Collection Types
 

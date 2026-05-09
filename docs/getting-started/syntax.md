@@ -5,11 +5,13 @@ There are two styles of coding syntax: `chili` and `pepper`.
 - `chili` is a modern syntax, more amiable to other developers using other languages, especially `javascript`.
 - `pepper` is a vintage syntax, similar to `q`.
 
-## Syntax Configuration for Vim
+## Editor Syntax Configuration
 
-Vim configuration files are located in [vim-config](https://github.com/purple-chili/chili/tree/main/vim-config).
+Use `chiz` to install editor syntax configurations:
 
-Just copy the files to the `~/.vim` directory.
+- **Vim**: `chiz vim`
+- **Neovim**: `chiz neovim`
+- **VSCode**: Install [vscode-chili](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili) extension
 
 ## Evaluation Order
 
