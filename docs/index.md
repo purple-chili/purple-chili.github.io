@@ -59,11 +59,30 @@ With `chiz`, you can:
 - `chiz serve` to start a language server
 - `chiz parse` to parse code, and check syntax errors
 - `chiz vim` to install <span style="color:lime; font-weight: bold;">vim</span> syntaxes
-- `chiz neovim` to install <span style="color:cyan; font-weight: bold;">neovim</span> configuration
 
 ### VSCode Extension
 
 Install from [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=jshinonome.vscode-chili), this extension requires `chiz` to be installed for providing language server features.
+
+### Neovim Plugin
+
+Install from [chili-neovim](https://github.com/jshinonome/chili-neovim), using [lazy.nvim](https://github.com/folke/lazy.nvim):
+
+```lua
+{
+  "jshinonome/chili-neovim",
+  dependencies = {
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-vsnip",
+    "hrsh7th/vim-vsnip",
+  },
+  config = function()
+    require("chili").setup()
+  end,
+}
+```
 
 ## Change Log
 
