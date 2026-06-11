@@ -18,6 +18,14 @@ Delete an element from global state.
 | ---------- | ---- | --------------------------- |
 | id         | any  | Id of the element to delete |
 
+### `drain`
+
+Atomically take the accumulated DataFrame for a variable and reset it to a 0-row frame with the same schema. Returns all rows accumulated since the last drain (or since subscribe). The variable remains defined with an empty frame.
+
+| Parameters | Type | Description                              |
+| ---------- | ---- | ---------------------------------------- |
+| id         | sym  | Id of the DataFrame variable to drain    |
+
 ### `each`
 
 Apply a function to each element in a collection.
