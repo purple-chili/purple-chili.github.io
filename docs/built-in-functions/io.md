@@ -306,6 +306,7 @@ Writes a DataFrame as a partitioned dataframe, return the file size in bytes.
     - Automatically adds partition columns (`date` or `year`) if not present
     - Handles sub-partitioning with automatic numbering
     - Option to consolidate multiple sub-partitions into a single file
+    - On overwrite, always write-then-rename; temp shards use `{date}.tmp_0000` so they do not match the `{date}_*` partition glob
 
 **Example:**
 
@@ -327,6 +328,35 @@ Writes a DataFrame as a partitioned dataframe, return the file size in bytes.
 
     // Write to date-based partition
     size = wpar["/data/hdb"; 2024.01.15; `trades; df; `time; 0b; 0b]
+    ```
+
+### `wparc`
+
+Same as `wpar`, plus a per-call Parquet compression codec. Default compression is `zstd` when omitted / null.
+
+| Parameters   | Type        | Description                                                              |
+| ------------ | ----------- | ------------------------------------------------------------------------ |
+| hdb_path     | str or sym  | Base path for the HDB                                                    |
+| partition    | date or i64 | Partition identifier (date or year 1000-3999)                            |
+| table        | sym         | Table name                                                               |
+| df           | dataframe   | DataFrame to write                                                       |
+| sort_columns | syms        | Columns to sort by                                                       |
+| rechunk      | bool        | Whether to rechunk and consolidate partitions                            |
+| overwrite    | bool        | Whether to overwrite the existing file                                   |
+| compression  | str or null | Codec: `zstd`, `snappy`, `gzip`, `lz4`, `uncompressed` / `none`          |
+
+**Example:**
+
+=== "chili"
+
+    ```chili
+    size = wparc("/data/hdb", 2024.01.15, `trades, df, `time, 0b, 1b, "snappy")
+    ```
+
+=== "pepper"
+
+    ```pepper
+    size = wparc["/data/hdb"; 2024.01.15; `trades; df; `time; 0b; 1b; "snappy"]
     ```
 
 ### `load`

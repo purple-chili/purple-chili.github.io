@@ -97,6 +97,14 @@ Transpose a dataframe.
 | ---------- | ---- | ---------------------- |
 | df         | df   | DataFrame to transpose |
 
+### `unique`
+
+Stable row deduplication keeping the first occurrence of each duplicate row.
+
+| Parameters | Type | Description                         |
+| ---------- | ---- | ----------------------------------- |
+| df         | df   | DataFrame to deduplicate            |
+
 ### `unpivot`
 
 Unpivot a dataframe.

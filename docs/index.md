@@ -11,7 +11,7 @@
 
 ## Installation
 
-Support Linux, macOS, and Windows(x86_64).
+Support Linux (x86_64 and aarch64), macOS, and Windows (x86_64).
 
 Install from [chili-pie](https://pypi.org/project/chili-pie/) with `uv` or `pip`:
 

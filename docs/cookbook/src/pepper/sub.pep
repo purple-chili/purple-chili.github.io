@@ -14,7 +14,7 @@ upd: {[table; data] table upsert data; tick[this.h; 1]; };
 .sub.recover: {[handle]
   .handle.connect[handle];
   info: handle (`.tick.subscribe; ());
-  replay[info[0]; tick[0]; info[1]; (); 1b; handle];
+  replay[info[0]; tick[0; 0]; info[1]; (); 1b; handle];
   .handle.subscribing[handle];
 };
 

@@ -23,6 +23,8 @@ schema file is empty data, it is used to validate the schema of the data.
 
 ## Write Partitioned DataFrame
 
+Use `wpar` for the default write path, or `wparc` when you need a per-call Parquet compression codec. On overwrite, both always write-then-rename (temp shards use `{date}.tmp_0000`).
+
 === "chili"
 
     ```chili
@@ -37,6 +39,9 @@ schema file is empty data, it is used to validate the schema of the data.
     // single file
     ex2tz: ([]exchange: `TSE`HKG, tz: `Asia/Tokyo`Asia/Hong_Kong);
     wpar(`/tmp/hdb, 0n, `ex2tz, ex2tz, `time, 0b, 0b);
+
+    // custom compression (overwrite)
+    wparc(`/tmp/hdb, today(`), `trade, trade, `time, 0b, 1b, "snappy");
     ```
 
 === "pepper"
@@ -53,6 +58,9 @@ schema file is empty data, it is used to validate the schema of the data.
     // single file
     ex2tz: ([]exchange: `TSE`HKG; tz: `Asia/Tokyo`Asia/Hong_Kong);
     wpar[`/tmp/hdb; 0n; `ex2tz; ex2tz; `time; 0b; 0b];
+
+    // custom compression (overwrite)
+    wparc[`/tmp/hdb; today`; `trade; trade; `time; 0b; 1b; "snappy"];
     ```
 
 ## Read Partitioned DataFrame

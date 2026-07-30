@@ -1,7 +1,7 @@
 .tick.msgLog: "/tmp/msg.log";
 
-// .broker.validateSeq returns valid message number
-tick[0; .broker.validateSeq[.tick.msgLog; 0b]];
+// .broker.validateSeq returns valid message number; tock sets the counter absolutely
+tock[0; .broker.validateSeq[.tick.msgLog; 0b]];
 // str + str is allowed in chili, so we can concatenate strings using `+` operator
 .tick.msgHandle: .handle.open "file://" + .tick.msgLog;
 
@@ -20,8 +20,7 @@ tick[0; .broker.validateSeq[.tick.msgLog; 0b]];
   .log.info ("received"; count data; "for"; table);
   .tick.msgHandle (`upd; table; data);
   .broker.publish[`upd; table; data];
-  // tick[0; 1] is a built-in function for updating internal tick count
-  // use `tick 0` to get current tick count, `tick neg tick 0` to reset tick count.
+  // tick[0; 1] increments the internal tick count; tick[0; 0] reads it; tock[0; n] sets it
   tick[0; 1];
 };
 

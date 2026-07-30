@@ -32,7 +32,7 @@ Below is a summary of the main operators, their symbols, and their behavior.
 | &&        | logical and           | if both sides are true, return true, otherwise return false(short-circuit)     |
 | &         | and                   | Logical and, min for numbers, element-wise for collections                     |
 | #         | take                  | Take first/last N elements from collections                                    |
-| ^         | fill                  | Fill nulls in collections with a value                                         |
+| ^         | fill                  | Fill nulls: `value ^ x` / `fill[value; x]` fills nulls in `x` with `value`     |
 | \_        | remove                | Remove first/last N elements from collections                                  |
 | ++        | append                | Concatenation for lists, series, dicts, dataframes                             |
 

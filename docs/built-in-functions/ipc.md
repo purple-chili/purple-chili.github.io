@@ -126,6 +126,32 @@ Sets a callback function for the specified handle.
 | handle     | i64  | Handle number     |
 | callback   | str  | Callback function |
 
+### `.handle.rotate`
+
+Swap a file handle's writer to a new `file://` path. Flushes the old writer first. Skips rotation when the target URI already exists in the handle map. For sequence files, accepts non-empty files and sets the handle tick count to the existing message count.
+
+| Parameters | Type       | Description              |
+| ---------- | ---------- | ------------------------ |
+| handle     | i64        | Handle number            |
+| uri        | str or sym | New `file://` path       |
+
+### `.handle.fsync`
+
+Flush a file handle's buffered data to disk (`fdatasync`), for on-demand durability control.
+
+| Parameters | Type | Description   |
+| ---------- | ---- | ------------- |
+| handle     | i64  | Handle number |
+
+### `.handle.reply`
+
+Fire-and-forget async write to any connected handle, including incoming caller connections (`this.h`).
+
+| Parameters | Type | Description   |
+| ---------- | ---- | ------------- |
+| handle     | i64  | Handle number |
+| msg        | any  | Message       |
+
 ## Code Snippet
 
 === "chili"

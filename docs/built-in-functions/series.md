@@ -283,7 +283,7 @@ Union of two series.
 
 ### `unique`
 
-Get unique values in a series.
+Get unique values in a series (stable). Also accepts a DataFrame for stable row dedup — see [DataFrame `unique`](df.md#unique).
 
 | Parameters | Type   | Description                      |
 | ---------- | ------ | -------------------------------- |
