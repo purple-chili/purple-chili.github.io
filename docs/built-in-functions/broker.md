@@ -94,12 +94,20 @@ Replay a sequence file. Accepts whole-file gzip (`.seq.gz` or gzip magic); skip 
 
 ### `tick`
 
-Increment the internal tick count and return the new value. Use `tick[index; 0]` / `tick(index, 0)` to read the current value without changing it.
+Fetch-and-add on an internal counter: add `inc` under a process-wide write lock, then return the **new** (post-increment) value. Counters are independent per `index` (`0..1023`). Safe under concurrent inbound IPC connections — concurrent `tick` calls on the same index do not lose updates.
+
+Supported contract (may be depended on):
+
+- Return value is always the value **after** applying `inc`.
+- Atomic across concurrent connections / eval threads.
+- Negative `inc` is allowed (used for release / reset patterns).
+
+Use `tick[index; 0]` / `tick(index, 0)` to read the current value without changing it. Indices are not reserved for the tickerplant: `tick[0; …]` is conventionally the message counter, but other slots may be used as application counters (for example a gateway admission gate).
 
 | Parameters | Type | Description                            |
 | ---------- | ---- | -------------------------------------- |
-| index      | i64  | Tick counter index (0..1024)           |
-| inc        | i64  | Increment value                        |
+| index      | i64  | Tick counter index (0..1023)           |
+| inc        | i64  | Increment value (may be negative)      |
 
 ### `tock`
 
@@ -107,5 +115,22 @@ Set a tick counter to an absolute value (not an increment). Prefer this when res
 
 | Parameters | Type | Description                  |
 | ---------- | ---- | ---------------------------- |
-| index      | i64  | Tick counter index (0..1024) |
+| index      | i64  | Tick counter index (0..1023) |
 | value      | i64  | Absolute counter value       |
+
+### `lpt`
+
+Atomic tickerplant update under one lock: write ``(`upd; table; data)`` to `.tick.msgHandle`, `.broker.publish`, then advance a tick counter. Stock `.tick.upd` is `lpt[table; data; 0]`.
+
+Third argument:
+
+- **int** `tick_index` — log and publish `data` as given, then `tick[tick_index; 1]`.
+- **sym/str** `stamp_col` — under the same lock, stamp that column with `tick[0; 0] + i` (`u64`) per row, log/publish the stamped frame, then `tick[0; count data]`.
+
+Requires `.tick.msgHandle` to be set. Returns the new counter value at the tick slot used.
+
+| Parameters       | Type           | Description                                      |
+| ---------------- | -------------- | ------------------------------------------------ |
+| table            | sym or str     | Table name                                       |
+| data             | any            | Payload (dataframe required when stamping)       |
+| tick_index_or_col| i64 or sym/str | Counter index, or column name to stamp with seq  |
