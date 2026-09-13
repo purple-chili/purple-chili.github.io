@@ -19,8 +19,8 @@ tock(0, .broker.validateSeq(.tick.msgLog, 0b));
 .tick.upd: function(table, data) {
   .log.info(["received", count(data), "for", table]);
   // lpt: log-write + publish + tick(0, 1) under one lock.
-  // lpt(table, data, `seq) stamps seq = tick(0, 0) + i, then tick(0, count(data)).
-  lpt(table, data, 0)
+  // lpt(table, data, `seq, handle) stamps seq = tick(0, 0) + i, then tick(0, count(data)).
+  lpt(table, data, 0, .tick.msgHandle)
 };
 
 .tick.subscribe: function(tables) {

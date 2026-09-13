@@ -137,6 +137,31 @@ Converts a timestamp from UTC to the local timezone.
     local[2025.01.01T00:00:00.000; "America/New_York"];
     ```
 
+### `setz`
+
+Attach a timezone label to a datetime/timestamp **without converting** the
+underlying clock values (Polars dtype metadata only). Use this to make a naive
+`D` / `T` literal comparable to a tz-aware column.
+
+| Parameters | Type                | Description                          |
+| ---------- | ------------------- | ------------------------------------ |
+| timezone   | sym or str          | Timezone to attach (e.g. `"UTC"`)    |
+| timestamp  | datetime/timestamp  | Value to label                       |
+
+=== "chili"
+
+    ```chili
+    // Compare a UTC column to a naive timestamp literal
+    select from trade where time > setz("UTC", 2026.08.25D00:00:00);
+    ```
+
+=== "pepper"
+
+    ```pepper
+    // Compare a UTC column to a naive timestamp literal
+    select from trade where time > setz[`UTC; 2026.08.25D00:00:00];
+    ```
+
 ### `utc`
 
 Converts a timestamp to UTC.

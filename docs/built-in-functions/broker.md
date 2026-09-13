@@ -120,17 +120,24 @@ Set a tick counter to an absolute value (not an increment). Prefer this when res
 
 ### `lpt`
 
-Atomic tickerplant update under one lock: write ``(`upd; table; data)`` to `.tick.msgHandle`, `.broker.publish`, then advance a tick counter. Stock `.tick.upd` is `lpt[table; data; 0]`.
+Atomic tickerplant update under one lock: write ``(`upd; table; data)`` to
+`handle`, `.broker.publish`, then advance a tick counter. Stock `.tick.upd` is
+`lpt[table; data; 0; .tick.msgHandle]`.
 
 Third argument:
 
 - **int** `tick_index` — log and publish `data` as given, then `tick[tick_index; 1]`.
 - **sym/str** `stamp_col` — under the same lock, stamp that column with `tick[0; 0] + i` (`u64`) per row, log/publish the stamped frame, then `tick[0; count data]`.
 
-Requires `.tick.msgHandle` to be set. Returns the new counter value at the tick slot used.
+Fourth argument `handle` is the log-file handle, bound inside the lock (pass
+`.tick.msgHandle` or any other sequence handle, e.g. a per-table tplog).
 
-| Parameters       | Type           | Description                                      |
-| ---------------- | -------------- | ------------------------------------------------ |
-| table            | sym or str     | Table name                                       |
-| data             | any            | Payload (dataframe required when stamping)       |
-| tick_index_or_col| i64 or sym/str | Counter index, or column name to stamp with seq  |
+Returns the new counter value at the tick slot used.
+
+| Parameters        | Type           | Description                                     |
+| ----------------- | -------------- | ----------------------------------------------- |
+| table             | sym or str     | Table name                                      |
+| data              | any            | Payload (dataframe required when stamping)      |
+| tick_index_or_col | i64 or sym/str | Counter index, or column name to stamp with seq |
+| handle            | i64            | Log/sequence handle                            |
+
