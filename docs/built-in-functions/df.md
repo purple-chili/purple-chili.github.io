@@ -2,6 +2,50 @@
 
 ## Functions
 
+### `.fn.select`
+
+Run a functional select with explicit expressions:
+
+```pepper
+.fn.select[table; partitions; where; group; operations; limit]
+```
+
+| Parameters | Type              | Description                                      |
+| ---------- | ----------------- | ------------------------------------------------ |
+| table      | sym or dataframe  | Table to query                                   |
+| partitions | list              | Partition values; use an empty list for an in-memory table |
+| where      | list of expressions | Filter conditions                              |
+| group      | list of expressions | Grouping expressions                           |
+| operations | list of expressions | Columns or aggregations to return              |
+| limit      | int               | Positive: first rows; negative: last rows; zero: no limit |
+
+Python bindings accept `polars.Expr` in these arguments, including expressions
+inside lists and dictionaries. Expressions returned by the engine are also
+converted to `polars.Expr`. Expression exchange uses Polars JSON serialization;
+expression structures unsupported by either side can raise conversion errors.
+
+```python
+import polars as pl
+from chili import ChiliEngine
+
+engine = ChiliEngine(pepper=True)
+engine.set_var("trades", pl.DataFrame({
+    "sym": ["a", "b", "a"],
+    "qty": [1, 2, 3],
+}))
+result = engine.fn_call(
+    ".fn.select",
+    ["trades", [], [], [pl.col("sym")], [pl.col("qty").sum()], 0],
+)
+# result contains sym: ["a", "b"], qty: [4, 2]
+engine.shutdown()
+```
+
+Plain strings and symbols remain literal values. For example, grouping by
+`["sym"]` groups by the constant text "sym"; `[pl.col("sym")]` groups by the
+column. In Pepper, use `col each ks` to convert a list of names to column
+expressions.
+
 ### `collect`
 
 Collect a lazy DataFrame into an eager DataFrame. Used with lazy evaluation mode (`-L` or `--lazy`).
