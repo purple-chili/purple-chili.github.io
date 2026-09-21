@@ -305,7 +305,7 @@ Writes a DataFrame as a partitioned dataframe, return the file size in bytes.
     - Supports date and year-based partitioning
     - Automatically adds partition columns (`date` or `year`) if not present
     - Handles sub-partitioning with automatic numbering
-    - Option to consolidate multiple sub-partitions into a single file
+    - Option to consolidate multiple sub-partitions into a single file. The merged file is fully written before any existing sub-partition is replaced; if the merge fails, an error is returned and the partition is left exactly as it was
     - On overwrite, always write-then-rename; temp shards use `{date}.tmp_0000` so they do not match the `{date}_*` partition glob
 
 **Example:**

@@ -291,7 +291,7 @@ Get unique values in a series (stable). Also accepts a DataFrame for stable row 
 
 ### `xbar`
 
-Assign bars to each element in a series.
+Assign bars to each element in a series: each value is rounded down to a multiple of the bar size. Works the same for a single value (`5 xbar 17` is `15`). A bar size of 0 is an error.
 
 | Parameters | Type   | Description              |
 | ---------- | ------ | ------------------------ |

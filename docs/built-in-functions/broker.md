@@ -14,16 +14,25 @@ Publish data for table. This only serialize the data once and publish to all sub
 
 ### `.broker.subscribe`
 
-Subscribe to a table for handle.
+Subscribe a handle to topics and return the **replay bound**: the value of `tick[0; 0]` at the moment the handle was registered.
 
-| Parameters | Type | Description                                           |
-| ---------- | ---- | ----------------------------------------------------- |
-| handle     | i64  | Handle to subscribe to                                |
-| topics     | syms | Topics to subscribe to, usually a list of table names |
+| Parameters | Type | Description                                                                          |
+| ---------- | ---- | ------------------------------------------------------------------------------------ |
+| handle     | i64  | Handle to subscribe                                                                  |
+| topics     | syms | Topics to subscribe to, usually a list of table names (sym, str, or a list of either) |
+
+The registration and the bound are one atomic step under the same lock `lpt` takes, so a subscriber never misses or double-counts a message:
+
+- every message logged **before** the call is at or below the bound and comes from `replay`;
+- every message published **after** it is buffered for the handle and written right after the reply to the subscribe request, in order, before any later message.
+
+Hand the returned bound to the subscriber (see `.tick.subscribe` in the [cookbook](../cookbook/real-time-case.md)). Do not read `tick[0; 0]` in a separate statement: a message published in between would be in neither the replay nor the live stream.
+
+When called for a handle other than the calling connection (from the REPL, a job, another connection), the subscription goes live immediately.
 
 ### `.broker.subscribeFiltered`
 
-Register a subscriber on one topic with an optional per-handle row filter. Empty `values` means no filter (same as unfiltered subscribe for that topic).
+Register a subscriber on one topic with an optional per-handle row filter, and return the replay bound exactly as `.broker.subscribe` does. Empty `values` means no filter (same as unfiltered subscribe for that topic).
 
 | Parameters | Type       | Description                                      |
 | ---------- | ---------- | ------------------------------------------------ |
@@ -43,7 +52,9 @@ Unsubscribe from a table for handle.
 
 ### `.broker.validateSeq`
 
-Fix a corrupted sequence file by removing the last invalid message, and return the number of valid messages in the file.
+Fix a corrupted sequence file by removing a torn trailing message, and return the number of valid messages in the file.
+
+Only a structurally incomplete tail is removed: a short header, a short payload, or a length larger than the rest of the file. With `must_deserialize`, a complete message that cannot be decoded is reported in the log and kept, along with everything after it (`replay` skips such a message and applies the rest).
 
 Accepts whole-file gzip sequence logs (`.seq.gz` or gzip magic) without gunzip-to-temp.
 
@@ -76,6 +87,22 @@ List all topics with subscriber handles.
 | Parameters | Type | Description |
 | ---------- | ---- | ----------- |
 | None       | None | None        |
+
+## Slow subscribers
+
+Every subscriber gets its own outbound queue and writer thread, so `.broker.publish` and `lpt` never wait on a slow or stalled consumer. A backlog costs the publisher memory, not time.
+
+By default the queue has no bound. Bounds are a policy checked after each publish, set from the embedding API (`ChiliEngine` in Python):
+
+| Setting                            | Default | Meaning                                                                                   |
+| ---------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| `set_subscriber_queue_max(n)`      | `0`     | `0`: no frame bound. `n > 0`: shed above `n` queued frames. `n < 0`: legacy blocking write |
+| `set_subscriber_queue_max_bytes(n)` | `0`     | Shed above `n` queued bytes (`0` = no byte bound)                                          |
+| `set_subscriber_queue_grace_ms(ms)` | `0`     | Shed only once the queue has stayed over a bound this long (`0` = at the first breach)     |
+
+A shed subscriber is disconnected; its `.handle.onDisconnected` callback can reconnect and recover. `stats()` reports `queue_depth_by_handle` and `queue_bytes_by_handle` so a backlog can be watched before it matters.
+
+Subscriptions of a disconnected, closed or shed handle are removed from `.broker.list` automatically.
 
 ## Other Functions
 

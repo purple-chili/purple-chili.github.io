@@ -9,16 +9,25 @@ upd: function(table, data) {
   info: h([`.tick.subscribe, []]);
   (set) each info(2);
   // .log.info(["broker info", info]);
+  // start reading now, but park live messages until the replay is done, so a
+  // slow replay does not build a backlog in the message broker
+  .handle.holding(h);
   replay(info(0), 0, info(1), [], 1b, h);
-  .handle.subscribing(h);
+  // apply the parked messages in order, then go live
+  .handle.release(h);
 };
 
-// this function will be called when the connection is lost, retry every minute until no error
+// this function will be called when the connection is lost, retried with backoff until no error
 .sub.recover: function(handle) {
   .handle.connect(handle);
   info: handle([`.tick.subscribe, []]);
-  replay(info(0), tick(0, 0), info(1), [], 1b, handle);
-  .handle.subscribing(handle);
+  .handle.holding(handle);
+  // upd counts every applied message in tick(handle), replayed or live. This
+  // subscriber receives every table, so that count is its position in the log:
+  // continue from there. (A subscriber of only some tables cannot know its
+  // position; it has to reset its tables and replay from 0.)
+  replay(info(0), tick(handle, 0), info(1), [], 1b, handle);
+  .handle.release(handle);
 };
 
 .sub.init();

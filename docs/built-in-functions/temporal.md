@@ -98,6 +98,8 @@ Returns the current date as days since the Unix epoch (1970-01-01).
 
 Converts a timestamp to a different timezone.
 
+Across a daylight-saving change a wall-clock time can be ambiguous or not exist. `tz`, `local` and `utc` resolve both cases instead of failing: a time that happened twice (clocks went back) is taken as the earlier one, and a time that never happened (clocks went forward over it) is shifted forward by the length of the gap.
+
 | Parameters | Type       | Description              |
 | ---------- | ---------- | ------------------------ |
 | timestamp  | timestamp  | Timestamp to convert     |

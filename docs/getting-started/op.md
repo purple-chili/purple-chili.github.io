@@ -48,10 +48,10 @@ Below is a summary of the main operators, their symbols, and their behavior.
     // if a is null, return b, otherwise return a
     a ?? b;
 
-    // if a is true, return a, otherwise return b
+    // true if a is true (b is not evaluated), otherwise whether b is true
     a || b;
 
-    // if a is false, return a, otherwise return b
+    // false if a is false (b is not evaluated), otherwise whether b is true
     a && b;
     ```
 

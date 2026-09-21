@@ -49,7 +49,14 @@ Some examples for `series` type:
 1.0 2.0 -0wf64
 1.0 2.0 3.0e
 1.0 2.0 3.0f
+1 2.5 3
+1e-5 2.5E+3
+0n 0n 0n
 ```
+
+- A float vector may start with integers: `1 2.5 3` is `1.0 2.5 3.0`.
+- Scientific notation takes a signed or unsigned exponent: `1e-5`, `1.5e+3`, `3E3`. An `e` directly after an integer with nothing behind it is the `f32` suffix (`1e` is `1.0` as `f32`).
+- `0n 0n 0n` is a null vector of length 3.
 
 ## Special Types
 
@@ -89,6 +96,8 @@ use `type` function to get the type name of a `chili` value.
 - `str`: regular string
 
 usually `sym` is the same as `str`, but in series and dataframe, `sym` is categorical data type.
+
+String literals support the escapes `\\`, `\/`, `\"`, `\b`, `\f`, `\n`, `\r` and `\t`: `"a\nb"` is three characters with a newline in the middle. Write a literal backslash as `\\`, for example in a regular expression: `"\\d+"`.
 
 ## Casting
 

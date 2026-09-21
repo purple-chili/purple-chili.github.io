@@ -40,7 +40,7 @@ Match a string with a pattern.
 
 ### `pad`
 
-Pad a string to a given length.
+Pad a string to a given length. A positive length pads on the right, a negative length on the left — for a string, a series, and a column inside a query alike.
 
 | Parameters | Type | Description   |
 | ---------- | ---- | ------------- |
@@ -49,7 +49,7 @@ Pad a string to a given length.
 
 ### `replace`
 
-Replace a string with a replacement.
+Replace every match of a pattern (a regular expression) with a replacement — for a string, a series, and a column inside a query alike.
 
 | Parameters  | Type | Description        |
 | ----------- | ---- | ------------------ |
@@ -68,7 +68,7 @@ Split a string into a list of strings.
 
 ### `trim`
 
-Trim a string.
+Trim whitespace from both ends of a string. `trim`, `trims` and `trime` behave the same on a string, a series, and a column inside a query.
 
 | Parameters | Type | Description    |
 | ---------- | ---- | -------------- |

@@ -71,6 +71,8 @@ Optional statements:
 
 Syntax: `update [columns] [by columns] from dataframe [where condition]`
 
+With a `where` condition, rows the condition does not select keep their current value when the updated column already exists (`update qty*2 from t where sym=`a` leaves the other rows' `qty` alone, with or without a `qty:` name). A new column is null in those rows.
+
 Optional statements:
 
 - columns
@@ -123,6 +125,8 @@ Optional statements:
 - delete columns from dataframe
 - delete from dataframe
 
+With several conditions (`delete from t where a>1, b<2`) only rows matching **all** of them are deleted. A row whose condition evaluates to null does not match and is kept.
+
 === "chili"
 
     ```chili
@@ -159,7 +163,7 @@ Optional statements:
 
 ### `aj`
 
-As-of join.
+As-of join: each left row gets the most recent right row at or before its time. A right row at exactly the same time matches, whether or not there are by-columns (`aj[`time; ...]` and `aj[`sym`time; ...]` agree).
 
 | Parameters | Type      | Description        |
 | ---------- | --------- | ------------------ |

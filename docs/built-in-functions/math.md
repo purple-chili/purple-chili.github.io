@@ -143,7 +143,7 @@ Get the covariance with 1 degrees of freedom of two series.
 
 ### `div`
 
-Integer division of two numbers.
+Integer division of two numbers, rounding down (floor): `-7 div 2` is `-4`, for atoms and series alike. A zero divisor gives null. Operands of different numeric types are brought to a common type first.
 
 | Parameters | Type | Description |
 | ---------- | ---- | ----------- |
@@ -304,7 +304,7 @@ Get the moving minimum value of a series.
 
 ### `mod`
 
-Get the modulus of two numbers.
+Get the modulus of two numbers. The result takes the sign of the divisor (`-7 mod 3` is `2`), for atoms and series alike. A zero divisor gives null.
 
 | Parameters | Type | Description |
 | ---------- | ---- | ----------- |
@@ -401,7 +401,7 @@ Get the percentage change of a series.
 
 ### `pow`
 
-Get the power of a number.
+Get the power of a number. Integer operands give an integer when the result fits; a negative exponent (`2 pow -1` is `0.5`) or an overflowing result gives a float.
 
 | Parameters | Type | Description           |
 | ---------- | ---- | --------------------- |

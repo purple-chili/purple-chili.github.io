@@ -6,6 +6,8 @@ The job system in `chili` provides a way to schedule, manage, and query backgrou
 
 To start the job scheduler, you need to pass the `--interval` argument to the `chili` or `pepper` binary.
 
+A job that raises an error, or even panics, does not stop the scheduler or the other jobs. A job that is deactivated or cleared while it is running stays that way.
+
 ## Job Structure
 
 A job is represented by the following fields:
