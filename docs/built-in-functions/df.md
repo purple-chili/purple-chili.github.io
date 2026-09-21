@@ -234,6 +234,14 @@ no sorting or deduplication is performed.
   operation. The return value is the number of incoming rows, including rows
   discarded by the limit.
 - A dataframe value returns a new dataframe and leaves the original unchanged.
+- For table symbols, trimming happens before appending when the incoming batch
+  has at least `n` rows or the stored table is already larger than `n`. Only rows
+  that can survive are appended. Ordinary partial updates append in place and
+  then trim, avoiding an extra copy of the stored table. Dataframe-value calls
+  always trim a separate result before appending.
+- Schema validation still applies, including when `n` is zero; a failed update
+  leaves the stored table unchanged. Polars slices may share backing buffers, so
+  the row limit is not a strict limit on resident memory.
 - If the table does not exist, `data` must be a dataframe; the new table contains
   at most its last `n` rows.
 - `n` equal to zero retains an empty dataframe with the same schema. Negative
