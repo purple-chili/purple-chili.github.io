@@ -161,12 +161,81 @@ Unpivot a dataframe.
 
 ### `vstack`
 
-Vertically stack two dataframes.
+Append dataframe chunks with `vstack[table; data]` (pepper) or
+`vstack(table, data)` (chili).
 
-| Parameters | Type | Description      |
-| ---------- | ---- | ---------------- |
-| df1        | df   | First dataframe  |
-| df2        | df   | Second dataframe |
+- `table` is a table symbol or a dataframe value; `data` must be a dataframe.
+- A table symbol appends atomically to global state and returns the incoming row
+  count. A missing table is created from `data`. Incoming dtypes and timezones
+  follow the existing table, as with symbol `upsert`; a failed append preserves
+  the table.
+- A dataframe value returns a new dataframe without changing either input.
+
+Symbol-form `vstack` preserves the historical buffers held by concurrent readers
+or writers. Ordinary `upsert` extends backing storage and may copy retained data
+while a snapshot is alive.
+
+Since 0.11.3, symbol-form `vstack` buffers have automatic compaction enabled by
+default: a separate Rust worker starts on the first nonempty append, waits
+250 ms between passes, and merges small chunks with a 65,536-row target. Existing
+large chunks keep their buffers. No Python timer or job scheduler is required.
+Only tables changed by symbol-form `vstack` are scheduled; dataframe-value calls
+and `set_var` alone do not schedule maintenance.
+
+Use [`.compact.configure`](config.md#compactconfigure) or Python
+`engine.set_auto_compaction(interval_ms=250, target_rows=65536)` to tune the
+worker. Compaction controls chunk growth, not retention or a hard latency bound.
+See [`upsertn`](#upsertn) for the retention tradeoff.
+
+=== "chili"
+
+    ```chili
+    t: ([]seq: 1 2);
+    added: vstack(`t, ([]seq: 3 4));
+    // added is 2; t contains seq: 1 2 3 4
+    combined: vstack(t, ([]seq: 5));
+    // combined has 5 rows; t still has 4
+    ```
+
+=== "pepper"
+
+    ```pepper
+    t: ([]seq: 1 2);
+    added: vstack[`t; ([]seq: 3 4)];
+    // added is 2; t contains seq: 1 2 3 4
+    combined: vstack[t; ([]seq: 5)];
+    // combined has 5 rows; t still has 4
+    ```
+
+### `compact`
+
+Merge adjacent small chunks with `compact[table; target_rows]` (pepper) or
+`compact(table, target_rows)` (chili). `target_rows` must be a positive integer.
+
+A table symbol compacts a snapshot on the calling thread outside the variable
+write lock, then publishes atomically while preserving concurrent `vstack`
+appends. It returns the snapshot's row count, excluding appends received during
+compaction. A dataframe value returns a compacted dataframe and leaves the
+original unchanged. Existing snapshots remain valid in both cases.
+
+Chunks already at least `target_rows` long keep their buffers. The target is a
+grouping size, not a maximum: a merged group can exceed it, and the final group
+can be smaller. Columns can have different chunk boundaries.
+
+Only one compaction can be pending for the current table state. An explicit
+call reports an error if a pass is already running; the automatic worker skips
+busy tables and retries later. Replacements, drains, deletion, `upsert`, and
+`upsertn` invalidate an in-flight pass. An explicit call then returns a
+cancellation error instead of overwriting newer data; the worker discards its
+cancelled result.
+
+Assigning a slice back to the same variable, such as
+`.s.buf: neg[.s.keep] # .s.buf`, also counts as a replacement. It clears the pending
+queue entry, and a subsequent `vstack` schedules the table again. Frequent
+replacements can repeatedly cancel compaction, leaving small chunks and slow
+readers even when the retained row count is bounded. The worker cannot publish
+its old prefix after a trim because that could restore removed rows. See the
+[`upsertn` retention guidance](#upsertn) below.
 
 ### `xasc`
 
@@ -248,6 +317,15 @@ no sorting or deduplication is performed.
   limits are rejected.
 - When fewer than `n` rows are available, all available rows are retained.
   Unlike `-n#`, `upsertn` does not repeat rows to reach the limit.
+
+For periodic retention on a `vstack` buffer, use an empty batch with the same
+schema: ``upsertn[`.s.buf; 0 # data; .s.keep]``. This retains at most `.s.keep` rows
+atomically without adding rows. It also invalidates pending compaction. Its
+existing `extend` path merges fragmented numeric columns itself, which can copy
+the retained data under the variable write lock. If called from `upd`, that work
+runs on the apply thread. Choose the window and trim frequency against the
+application's latency budget, especially while snapshots are alive; keep ordinary
+incoming appends on `vstack` when using this pattern.
 
 **Examples:**
 

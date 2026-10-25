@@ -206,7 +206,9 @@ Writes a DataFrame to a JSON file in JSON Lines format.
 
 ### `wparquet`
 
-Writes a DataFrame to a Parquet file.
+Writes a DataFrame to a local Parquet file using zstd compression and returns
+the file size in bytes. The requested level must be between 1 and 22; invalid
+levels are rejected before opening or truncating the output file.
 
 | Parameters        | Type       | Description                   |
 | ----------------- | ---------- | ----------------------------- |
@@ -214,18 +216,37 @@ Writes a DataFrame to a Parquet file.
 | df                | dataframe  | DataFrame to write            |
 | compression_level | int        | Compression level (1-22)      |
 
+Since 0.11.3, this uses the ordered streaming Parquet sink in Rust Polars 0.55.2,
+the same writer path used by Python Polars. Defaults use an approximate
+122,880-row streaming target, 1 MiB pages, min/max/null-count statistics, and
+automatic encoding selection. Distinct-count statistics are disabled.
+`POLARS_IDEAL_SINK_MORSEL_SIZE_ROWS` and `POLARS_IDEAL_SINK_MORSEL_SIZE_BYTES`
+override the streaming targets; they do not select exact row-group sizing.
+
+Input chunk layout affects row-group boundaries, file size, and file bytes, even
+for the same ordered rows and compression level. Automatic compaction changes the
+live table's chunk layout over time, so separate snapshots of the same logical
+rows can produce different Parquet bytes. Later compaction does not alter an
+existing snapshot.
+
+`wparquet` does not currently expose an exact row-group size. Matching zstd
+levels or streaming targets does not guarantee byte parity with Python Polars.
+Compare schema and ordered values for dataframe equality; exact-byte
+reproducibility also requires controlling physical layout, writer options, and
+library versions. File hashes alone are not a test of logical dataframe equality.
+
 **Example:**
 
 === "chili"
 
     ```chili
-    size = wparquet("output.parquet", df, 6);
+    size: wparquet("output.parquet", df, 6);
     ```
 
 === "pepper"
 
     ```pepper
-    size = wparquet["output.parquet"; df; 6]
+    size: wparquet["output.parquet"; df; 6]
     ```
 
 ### `wtxt`
