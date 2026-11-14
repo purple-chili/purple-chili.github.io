@@ -21,12 +21,10 @@ Subscribe a handle to topics and return the **replay bound**: the value of `tick
 | handle     | i64  | Handle to subscribe                                                                  |
 | topics     | syms | Topics to subscribe to, usually a list of table names (sym, str, or a list of either) |
 
-The registration and the bound are one atomic step under the same lock `lpt` takes, so a subscriber never misses or double-counts a message:
-
-- every message logged **before** the call is at or below the bound and comes from `replay`;
-- every message published **after** it is buffered for the handle and written right after the reply to the subscribe request, in order, before any later message.
-
-Hand the returned bound to the subscriber (see `.tick.subscribe` in the [cookbook](../cookbook/real-time-case.md)). Do not read `tick[0; 0]` in a separate statement: a message published in between would be in neither the replay nor the live stream.
+Registration and reading the counter share the `lpt` lock. The counter is a
+message bound only when `lpt` counts messages in slot 0 from the start of this
+log. With row stamping, a seeded counter, or another tick slot, do not pass it
+to `replay`. Use `.broker.subscribeLog` for an explicit message bound.
 
 When called for a handle other than the calling connection (from the REPL, a job, another connection), the subscription goes live immediately.
 
@@ -40,6 +38,27 @@ Register a subscriber on one topic with an optional per-handle row filter, and r
 | topic      | sym        | Topic (table) name                               |
 | column     | sym or str | Column to filter on                              |
 | values     | syms/strs  | Allowed values; empty list disables the filter   |
+
+### `.broker.subscribeLog` and `.broker.subscribeFilteredLog`
+
+Available in 0.11.4. The unfiltered form takes `(handle; topics; log)`; the
+filtered form takes `(handle; topic; column; values; log)`. `log` is the
+sequence-file handle used by `lpt`.
+
+They return `(counter; message_end; log_path)`. Registration, the slot-0
+application counter, and the actual log path and exclusive message end are
+captured under the `lpt` lock. The message count is independent of row counts,
+sequence seeds, and mutable tick slots. Each complete log append counts once,
+including an empty dataframe. Reopen and rotation initialize it from the log.
+No log scan is needed during subscription.
+
+The bundled tickerplant returns `(log_path; counter; schema; message_end)`.
+The bundled subscriber uses the fourth field for replay. Upgrade tickerplant
+and subscriber together; new subscribers reject replies without a message
+bound. Old subscribers still read the legacy counter and remain unsafe with
+row-stamping tickerplants. Existing affected subscriber state must be rebuilt
+from retained logs: correcting future bounds cannot repair old duplicates or
+skipped frames. Custom tickerplants must adopt the extended reply too.
 
 ### `.broker.unsubscribe`
 
@@ -114,7 +133,7 @@ Replay a sequence file. Accepts whole-file gzip (`.seq.gz` or gzip magic); skip 
 | ----------- | --------------- | -------------------------------- |
 | file        | str             | File to replay                   |
 | start       | timestamp or i64| Start time or start index        |
-| end         | i64             | End index                        |
+| end         | i64             | Exclusive message index          |
 | table_names | syms            | Table names to replay            |
 | eval        | bool            | Whether to evaluate the messages |
 | handle      | i64             | Handle number                    |

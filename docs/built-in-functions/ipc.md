@@ -176,7 +176,7 @@ Apply the messages parked by `.handle.holding` in arrival order, then switch the
     ```chili
     info: h([`.tick.subscribe, []]);
     .handle.holding(h);
-    replay(info(0), 0, info(1), [], 1b, h);
+    replay(info(0), 0, info(3), [], 1b, h);
     .handle.release(h);
     ```
 
@@ -185,13 +185,23 @@ Apply the messages parked by `.handle.holding` in arrival order, then switch the
     ```pepper
     info: h (`.tick.subscribe; ());
     .handle.holding[h];
-    replay[info[0]; 0; info[1]; (); 1b; h];
+    replay[info[0]; 0; info[3]; (); 1b; h];
     .handle.release[h];
     ```
 
 ### `.handle.fsync`
 
-Flush a file handle's buffered data to disk (`fdatasync`), for on-demand durability control.
+Synchronize a file handle's data using Rust `File::sync_data` and the platform's
+sync operation. In 0.11.4, the first non-interruption error propagates to the
+caller. The engine preserves the original file description and advisory lock;
+it does not reopen the path or retry a failed writeback on another descriptor.
+Interrupted syscalls may retry on the same descriptor.
+
+Normal return for a valid file handle means the OS sync operation succeeded.
+After a writeback failure, durability is unknown; a later successful sync does
+not prove that earlier failed writes were recovered. The host decides whether
+to stop accepting publishes. This operation does not synchronize the parent
+directory for file creation/rename and does not validate log frames or length.
 
 | Parameters | Type | Description   |
 | ---------- | ---- | ------------- |

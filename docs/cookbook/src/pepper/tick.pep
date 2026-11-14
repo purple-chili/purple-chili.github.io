@@ -27,11 +27,11 @@ tock[0; .broker.validateSeq[.tick.msgLog; 0b]];
   tables: $[count tables; tables; key .tick.schema];
   // this is reserved for current stack
   // this.h is the handle for the IPC connection of current stack
-  // .broker.subscribe registers the handle and returns the replay bound in one
+  // .broker.subscribeLog captures the log message bound and registers in one
   // atomic step: everything up to the bound comes from the log, everything after
   // it is delivered live. Never read tick[0; 0] separately for this.
-  bound: .broker.subscribe[this.h; tables];
-  (.tick.msgLog; bound; .tick.schema)
+  bound: .broker.subscribeLog[this.h; tables; .tick.msgHandle];
+  (bound[2]; bound[0]; .tick.schema; bound[1])
 };
 
 .tick.unsubscribe: {[tables]

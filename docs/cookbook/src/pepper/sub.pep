@@ -9,7 +9,7 @@ upd: {[table; data] table upsert data; tick[this.h; 1]; };
   // start reading now, but park live messages until the replay is done, so a
   // slow replay does not build a backlog in the message broker
   .handle.holding[h];
-  replay[info[0]; 0; info[1]; (); 1b; h];
+  replay[info[0]; 0; info[3]; (); 1b; h];
   // apply the parked messages in order, then go live
   .handle.release[h];
 };
@@ -23,7 +23,7 @@ upd: {[table; data] table upsert data; tick[this.h; 1]; };
   // subscriber receives every table, so that count is its position in the log:
   // continue from there. (A subscriber of only some tables cannot know its
   // position; it has to reset its tables and replay from 0.)
-  replay[info[0]; tick[handle; 0]; info[1]; (); 1b; handle];
+  replay[info[0]; tick[handle; 0]; info[3]; (); 1b; handle];
   .handle.release[handle];
 };
 
