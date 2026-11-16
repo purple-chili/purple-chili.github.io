@@ -36,3 +36,16 @@ compaction_target_rows=65536)`.
 Compaction does not implement retention or a hard latency guarantee. See
 [`compact`](df.md#compact) for snapshot behavior and the interaction with frequent
 table-replacing trims, and [`upsertn`](df.md#upsertn) for bounded retention.
+
+## Python extension allocator on macOS
+
+From 0.11.5, the macOS Python extension uses Rust's system allocator rather
+than mimalloc v3. This addresses the allocator-recursion path reported during
+engine construction in mixed parallel workloads. Confirmation against the
+affected full macOS suite is pending. Python extensions on other platforms
+and the CLI retain mimalloc; Python's own allocator is unchanged.
+
+The repository's manual `macOS Python Candidate` GitHub Actions workflow
+builds an ARM64 wheel and runs the Python tests with eight workers on Python
+3.14 and Polars 1.39.3. The wheel is uploaded as an artifact for validation
+against the affected application suite; the workflow does not publish to PyPI.

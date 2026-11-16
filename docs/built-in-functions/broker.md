@@ -53,7 +53,10 @@ including an empty dataframe. Reopen and rotation initialize it from the log.
 No log scan is needed during subscription.
 
 The bundled tickerplant returns `(log_path; counter; schema; message_end)`.
-The bundled subscriber uses the fourth field for replay. Upgrade tickerplant
+The bundled subscriber uses the fourth field for replay. In 0.11.5, `log_path`
+is a symbol and reaches Python as `str`; 0.11.4 returned a Pepper string, which
+reached Python as `bytes`. Custom Python readers should account for that type
+when handling a 0.11.4 reply. Upgrade tickerplant
 and subscriber together; new subscribers reject replies without a message
 bound. Old subscribers still read the legacy counter and remain unsafe with
 row-stamping tickerplants. Existing affected subscriber state must be rebuilt
