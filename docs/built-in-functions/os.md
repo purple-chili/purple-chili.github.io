@@ -174,7 +174,13 @@ Retrieves the value of an environment variable.
 
 ## `.os.mem`
 
-Retrieves the memory usage of the current process and the system available memory.
+Refreshes system RAM and the current process's resident set size (RSS). The
+result contains four values in MiB.
+
+- `used` is the current process's RSS.
+- `limit` is the value of `CHILI_MEMORY_LIMIT` or `0` if unset or invalid.
+- `total` is total system RAM.
+- `avail` is free system RAM.
 
 | Parameters | Type | Description |
 | ---------- | ---- | ----------- |
